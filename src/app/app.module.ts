@@ -6,24 +6,37 @@ import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbThemeModule, NbLayoutModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, 
+  NbLayoutModule, 
+  NbButtonModule, 
+  NbTabsetModule,
+  NbBadgeModule,
+  NbMenuModule,
+  NbSidebarModule } from '@nebular/theme';
+  
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { ProjectMenuModule } from './project-menu/project-menu.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-
+    ProjectMenuModule,
     // Nebula Imports
-    NbThemeModule.forRoot({ name: 'dark' }),
+    NbThemeModule.forRoot(),
+    NbMenuModule.forRoot(),
+    NbSidebarModule.forRoot(),
+
     NbButtonModule,
     NbLayoutModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbTabsetModule,
+    NbBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
