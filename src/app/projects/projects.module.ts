@@ -5,13 +5,15 @@ import { NbAccordionModule, NbButton, NbButtonModule, NbCardModule, NbInputModul
 import { ProjectMenuComponent } from './project-menu/project-menu.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
+import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 
 @NgModule({
   declarations: [
     ProjectsComponent,
     ProjectMenuComponent,
     ProjectListComponent,
-    ProjectInputComponent
+    ProjectInputComponent,
+    ProjectOverviewComponent
   ],
   imports: [
     CommonModule,
