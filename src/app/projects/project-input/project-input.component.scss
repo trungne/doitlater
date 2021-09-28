@@ -1,3 +1,11 @@
-label {
-    padding: 1em;
+.project-input-box {
+    display: flex;
+    flex-direction: column;
 }
+label {
+    margin-bottom: 0.5em;
+}
+input {
+    margin-bottom: 1em;
+}
+
