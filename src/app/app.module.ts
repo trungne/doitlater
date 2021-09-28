@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbButtonModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
@@ -18,7 +18,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
+    // Nebula Imports
     NbThemeModule.forRoot({ name: 'dark' }),
+    NbButtonModule,
     NbLayoutModule,
     NbEvaIconsModule
   ],
