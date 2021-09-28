@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from './projects.component';
-import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule } from '@nebular/theme';
+import { NbAccordionModule, NbButton, NbButtonModule, NbCardModule, NbInputModule, NbMenuModule } from '@nebular/theme';
 import { ProjectMenuComponent } from './project-menu/project-menu.component';
+import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectInputComponent } from './project-input/project-input.component';
 
 @NgModule({
   declarations: [
     ProjectsComponent,
-    ProjectMenuComponent
+    ProjectMenuComponent,
+    ProjectListComponent,
+    ProjectInputComponent
   ],
   imports: [
     CommonModule,
-    NbSidebarModule,
     NbMenuModule,
     NbCardModule,
-    NbLayoutModule
+    NbButtonModule,
+    NbInputModule,
+    NbAccordionModule,
   ],
   exports: [
     ProjectsComponent,

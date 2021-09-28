@@ -1,16 +1,17 @@
 <nb-layout>
 
   <nb-layout-header fixed>
-    <app-navigation-bar></app-navigation-bar>
+    <app-navigation-bar></app-navigation-bar>    
   </nb-layout-header>
 
+  <nb-sidebar>
+    <app-project-menu></app-project-menu>
+  </nb-sidebar>
   <nb-layout-column>
     <app-projects></app-projects>
-    <router-outlet></router-outlet>
   </nb-layout-column>
-
   <nb-layout-footer fixed>
-  <!-- Insert footer here -->
   </nb-layout-footer>
 
 </nb-layout>
+
