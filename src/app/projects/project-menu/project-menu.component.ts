@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 
-
 @Component({
   selector: 'app-project-menu',
   templateUrl: './project-menu.component.html',
   styleUrls: ['./project-menu.component.scss']
 })
 export class ProjectMenuComponent implements OnInit {
-
-  items: NbMenuItem[] = [
+    items: NbMenuItem[] = [
     {
       title: 'Profile',
       icon: 'person-outline',
@@ -39,7 +37,6 @@ export class ProjectMenuComponent implements OnInit {
       icon: 'unlock-outline',
     },
   ];
-
   constructor() { }
 
   ngOnInit(): void {

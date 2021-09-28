@@ -15,10 +15,11 @@ import { NbThemeModule,
   NbSidebarModule } from '@nebular/theme';
   
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ProjectMenuModule } from './project-menu/project-menu.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
   declarations: [
+    // These components have access to AppModule imports
     AppComponent,
     NavigationBarComponent,
   ],
@@ -26,14 +27,16 @@ import { ProjectMenuModule } from './project-menu/project-menu.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ProjectMenuModule,
+
+    ProjectsModule, // components in this module
+    // DOES NOT have access to AppModule imports?
+
     // Nebula Imports
     NbThemeModule.forRoot(),
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
-
+    NbLayoutModule, 
     NbButtonModule,
-    NbLayoutModule,
     NbEvaIconsModule,
     NbTabsetModule,
     NbBadgeModule,
