@@ -8,8 +8,6 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class ProjectService {
-
-  projects: Project[] = PROJECTS;
   constructor() { }
 
   // getProjects(): Observable<Project[]> {
@@ -17,8 +15,8 @@ export class ProjectService {
   //   return projects;
   // }
 
-  getProjects(): Project[] {
-    return this.projects;
+  getProjects(): Observable<Project[]> {
+    return of(PROJECTS);
   }
 
   addProject(project: Project): void{
@@ -26,6 +24,10 @@ export class ProjectService {
   }
 
   deleteProject(id: string){
-    this.projects = this.projects.filter(project => project.id !== id);  
+    const found = PROJECTS.findIndex(project => project.id === id);
+    if (found > -1){
+      PROJECTS.splice(found, 1);
+    }
+    
   }
 }

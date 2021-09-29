@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Project } from '../protect';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-project-overview',
@@ -10,18 +9,17 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() project!: Project;
-  @Output() deleteProjectEvent = new EventEmitter<string>(); // emit id (which is a string)
   constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
   }
 
   openProject(): void {
-    // open project
+    console.log("open");
   }
 
   deleteProject(): void {
-    this.deleteProjectEvent.emit(this.project.id);
+    this.projectService.deleteProject(this.project.id);
   }
 
 }

@@ -8,5 +8,5 @@
 </nb-accordion>
 
 <div *ngFor= "let project of projects">
-  <app-project-overview (deleteProjectEvent)="deleteProject($event)" [project] = "project"></app-project-overview>
+  <app-project-overview [project] = "project"></app-project-overview>
 </div>
