@@ -1,12 +1,46 @@
-<div class="project-input-box">
-    <label class="subtitle"> Project's name </label>
-    <input type="text" nbInput fullWidth status="basic" placeholder="Keep it short">
-    
-    <label class="subtitle"> Project's description </label>
-    <input type="text" nbInput fullWidth status="basic" placeholder="Keep it brief">
+<button nbButton 
+    status="info" 
+    style="margin-bottom: 1em;"
+    (click)="showInputBox()">New Project</button>
+<div id="project-input-box" (keydown.escape)="hideInputBox()">
+    <nb-card >
+        <nb-card-body >
+           <!-- input box -->
+           <div (keydown.enter)="add(projectName.value, projectDescription.value)">
+
+            <label class="subtitle"> Project's name </label>
+            <input id="project-input-name" 
+                type="text" 
+                nbInput 
+                fullWidth 
+                status="primary" 
+                placeholder="Keep it short" 
+                autocomplete="off"
+                #projectName>
+            
+            <label class="subtitle"> Project's description </label>
+            <input id="project-input-description" 
+                type="text" 
+                nbInput 
+                fullWidth 
+                status="basic" 
+                placeholder="Keep it brief" 
+                autocomplete="off"
+                #projectDescription>
+
+            <!-- add button -->
+            <div style="display:flex; justify-content: space-between;">
+                <button nbButton status="primary" (click)="add(projectName.value, projectDescription.value)">
+                    Add
+                </button>
+                <button nbButton status="basic" (click)="hideInputBox()">
+                    Cancel
+                </button>
+            </div>
+            
+        </div>
+        </nb-card-body>
+    </nb-card>
 </div>
 
 
-<button nbButton fullWidth status="primary">
-    Add
-</button>

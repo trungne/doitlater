@@ -15,12 +15,22 @@ export class ProjectService {
   //   return projects;
   // }
 
+  generateId(): string{
+    const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
+    const time: number = Date.now();
+    const id = `${randomNum}-project-${time}`.replace('.', '');
+    return id;
+  }
+
   getProjects(): Observable<Project[]> {
     return of(PROJECTS);
   }
 
-  addProject(project: Project): void{
-    
+  addProject(name: string, description: string): void{
+    const id = this.generateId();
+    console.log(id);
+    const newProject = new Project(id, name, description);
+    PROJECTS.push(newProject);
   }
 
   deleteProject(id: string){
