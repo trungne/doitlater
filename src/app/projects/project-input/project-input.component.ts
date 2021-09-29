@@ -20,26 +20,26 @@ export class ProjectInputComponent implements OnInit {
     this.inputNameField = this.inputBox.querySelector("#project-input-name");
     this.inputDescriptionField = this.inputBox.querySelector("#project-input-description");
 
-    this.toggleInputBox(); // by default, input box is hidden
+    this.hideInputBox(); // by default, input box is hidden
   }
 
   toggleInputBox(){
-    this.inputBoxShown = !this.inputBoxShown;
     if(this.inputBoxShown){
       this.hideInputBox();
     }
     else{
       this.showInputBox();
     }
-
   }
 
   showInputBox(){
+    this.inputBoxShown = true;
     this.inputBox.style.display = "block";
     this.inputNameField.focus();
   }
 
   hideInputBox(){
+    this.inputBoxShown = false;
     this.inputBox.style.display = "none";
     this.inputNameField.value = "";
     this.inputDescriptionField.value = "";
