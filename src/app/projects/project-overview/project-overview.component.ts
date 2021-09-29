@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { Project } from '../protect';
 
@@ -9,13 +10,15 @@ import { Project } from '../protect';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() project!: Project;
-  constructor(private projectService: ProjectService) { }
+  constructor(
+    private router: Router,
+    private projectService: ProjectService) { }
 
   ngOnInit(): void {
   }
 
   openProject(): void {
-    console.log("open");
+    this.router.navigate([`/projects/${this.project.id}`])
   }
 
   deleteProject(): void {

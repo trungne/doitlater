@@ -1,2 +1,11 @@
-<button nbButton status="warning">Back</button>
+<button nbButton status="warning" (click)="goBack()">Back</button>
+<div *ngIf="project">
+    <p>
+        {{project.name}}
+    </p>
+    
+    <p>
+        {{project.description}}
+    </p>
+</div>
 

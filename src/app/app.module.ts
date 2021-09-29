@@ -16,17 +16,21 @@ import { NbThemeModule,
   
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ProjectsModule } from './projects/projects.module';
+import { RouterModule } from '@angular/router';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     // These components have access to AppModule imports
     AppComponent,
     NavigationBarComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    RouterModule,
 
     ProjectsModule, // components in this module
     // DOES NOT have access to AppModule imports?

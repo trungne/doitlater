@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../project.service';
 import { Project } from '../protect';
 
 @Component({
@@ -6,9 +9,26 @@ import { Project } from '../protect';
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.scss']
 })
-export class ProjectDetailComponent {
-  @Input() project!: Project;
-  constructor() { }
+export class ProjectDetailComponent implements OnInit {
+  project: Project | undefined;
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private location: Location) { }
 
-  
+  ngOnInit(): void {
+    this.getProject();
+  }
+
+  getProject(): void {
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    this.projectService.getProject(id).subscribe(
+      project => this.project = project
+    );
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

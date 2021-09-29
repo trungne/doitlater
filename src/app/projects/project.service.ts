@@ -26,6 +26,11 @@ export class ProjectService {
     return of(PROJECTS);
   }
 
+  getProject(id: string): Observable<Project>{
+    const project = PROJECTS.find(p => p.id === id)!;
+    return of(project);
+  }
+
   addProject(name: string, description: string): void{
     const id = this.generateId();
     const newProject = new Project(id, name, description);

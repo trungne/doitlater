@@ -1,13 +1,16 @@
 <div class="nav-bar">
-    <button nbButton shape="semi-round" status="primary" size="large">
+    <button nbButton shape="semi-round" status="primary" size="large" 
+        (click)="navigateTo('/home')">
         Home
     </button>
-    
-    <button nbButton shape="semi-round" status="primary" size="large">
-        <a routerLink="/projects">Projects</a>
+
+    <button nbButton shape="semi-round" status="primary" size="large"
+        (click)="navigateTo('/projects')">
+        Projects
     </button>
     
-    <button nbButton shape="semi-round" status="primary" size="large">
+    <button nbButton shape="semi-round" status="primary" size="large"
+        (click)="navigateTo('/about')">
         About Us
     </button>
 </div>
