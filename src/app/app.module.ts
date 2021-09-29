@@ -24,16 +24,12 @@ import { AboutComponent } from './about/about.component';
     // These components have access to AppModule imports
     AppComponent,
     NavigationBarComponent,
-    AboutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
-
-    ProjectsModule, // components in this module
-    // DOES NOT have access to AppModule imports?
 
     // Nebula Imports
     NbThemeModule.forRoot(),

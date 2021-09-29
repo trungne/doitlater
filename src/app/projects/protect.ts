@@ -1,7 +1,7 @@
 export class Project {
-  _id: string;
-  _name: string;
-  _description: string;
+  private _id: string;
+  private _name: string;
+  private _description: string;
 
   constructor(id: string, name: string, description: string){
     this._id = id;

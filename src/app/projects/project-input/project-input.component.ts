@@ -8,10 +8,10 @@ import { ProjectService } from '../project.service';
   styleUrls: ['./project-input.component.scss']
 })
 export class ProjectInputComponent implements OnInit {
-  inputBox?: any;
-  inputNameField?: any;
-  inputDescriptionField?: any;
-  inputBoxShown = false;
+  private inputBox?: any;
+  private inputNameField?: any;
+  private inputDescriptionField?: any;
+  private inputBoxShown = false;
 
   constructor(private projectService: ProjectService) { }
 

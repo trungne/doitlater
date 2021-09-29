@@ -10,7 +10,7 @@ import { Project } from '../protect';
   styleUrls: ['./project-detail.component.scss']
 })
 export class ProjectDetailComponent implements OnInit {
-  project: Project | undefined;
+  public project: Project | undefined;
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,

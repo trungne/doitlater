@@ -10,11 +10,6 @@ import { Observable, of } from 'rxjs';
 export class ProjectService {
   constructor() { }
 
-  // getProjects(): Observable<Project[]> {
-  //   const projects = of(PROJECTS);
-  //   return projects;
-  // }
-
   generateId(): string{
     const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
     const time: number = Date.now();

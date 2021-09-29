@@ -8,7 +8,7 @@ import { Project } from '../protect';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-  projects!: Project[];
+  public projects!: Project[];
   constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {

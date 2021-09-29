@@ -7,7 +7,7 @@ import { NbMenuItem } from '@nebular/theme';
   styleUrls: ['./project-menu.component.scss']
 })
 export class ProjectMenuComponent implements OnInit {
-    items: NbMenuItem[] = [
+    public items: NbMenuItem[] = [
     {
       title: 'Profile',
       icon: 'person-outline',

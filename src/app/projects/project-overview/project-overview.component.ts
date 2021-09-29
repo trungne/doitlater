@@ -9,7 +9,7 @@ import { Project } from '../protect';
   styleUrls: ['./project-overview.component.scss']
 })
 export class ProjectOverviewComponent implements OnInit {
-  @Input() project!: Project;
+  @Input() public project!: Project;
   constructor(
     private router: Router,
     private projectService: ProjectService) { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from './projects.component';
-import { NbAccordionModule, NbButton, NbButtonModule, NbCardModule, NbInputModule, NbMenuModule } from '@nebular/theme';
+import { NbAccordionModule, NbButtonModule, NbCardModule, NbInputModule, NbMenuModule } from '@nebular/theme';
 import { ProjectMenuComponent } from './project-menu/project-menu.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
@@ -26,8 +26,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     NbAccordionModule,
   ],
   exports: [
-    ProjectsComponent,
-    ProjectMenuComponent
+    ProjectsComponent
   ]
 })
 export class ProjectsModule { }
