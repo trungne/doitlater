@@ -11,6 +11,7 @@ export class ProjectInputComponent implements OnInit {
   inputBox?: any;
   inputNameField?: any;
   inputDescriptionField?: any;
+  inputBoxShown = false;
 
   constructor(private projectService: ProjectService) { }
 
@@ -19,7 +20,18 @@ export class ProjectInputComponent implements OnInit {
     this.inputNameField = this.inputBox.querySelector("#project-input-name");
     this.inputDescriptionField = this.inputBox.querySelector("#project-input-description");
 
-    this.hideInputBox(); // by default, input box is hidden
+    this.toggleInputBox(); // by default, input box is hidden
+  }
+
+  toggleInputBox(){
+    this.inputBoxShown = !this.inputBoxShown;
+    if(this.inputBoxShown){
+      this.hideInputBox();
+    }
+    else{
+      this.showInputBox();
+    }
+
   }
 
   showInputBox(){
