@@ -28,7 +28,6 @@ export class ProjectService {
 
   addProject(name: string, description: string): void{
     const id = this.generateId();
-    console.log(id);
     const newProject = new Project(id, name, description);
     PROJECTS.push(newProject);
   }
