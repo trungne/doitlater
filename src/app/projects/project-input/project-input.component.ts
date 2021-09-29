@@ -12,4 +12,8 @@ export class ProjectInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  add(){
+    
+  }
+
 }
