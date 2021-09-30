@@ -29,8 +29,8 @@ export class ProjectOverviewComponent implements OnInit {
     });
 }
 
-  showTaskInput(){
-    this.taskInputShown = true;
+  ToggleTaskInput(){
+    this.taskInputShown = !this.taskInputShown;
   }
 
   cancel(){

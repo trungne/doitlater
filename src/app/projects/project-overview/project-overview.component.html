@@ -4,13 +4,13 @@
       <ng-template pTemplate="header">{{project.name}}</ng-template>
       <ng-template pTemplate="content">
         <p class="font-light">{{ project.description }}</p>
-        <app-task-input *ngIf="taskInputShown" (cancelEvent)="cancel()"></app-task-input>
+        <app-task-input *ngIf="taskInputShown" (cancelEvent)="cancel()" [project]="project"></app-task-input>
 
         <div *ngFor="let task of project.tasks">
           <app-task [task]="task"></app-task>
         </div>
         <div style="display: flex; justify-content: space-between;">
-          <button pButton type="button" label="New Task" (click)="showTaskInput()" class="p-button-rounded p-button-success"></button>
+          <button pButton type="button" label="New Task" (click)="ToggleTaskInput()" class="p-button-rounded p-button-success"></button>
           <button pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
         </div>
         
