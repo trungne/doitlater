@@ -1,4 +1,4 @@
-import { Project } from "./protect";
+import { Project } from "./project";
 
 export const PROJECTS: Project[] = [
     new Project("1", "Project 1", "Project 1 description"),

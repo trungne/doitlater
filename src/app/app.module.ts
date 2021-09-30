@@ -15,15 +15,18 @@ import { NbThemeModule,
   NbSidebarModule } from '@nebular/theme';
   
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ProjectsModule } from './projects/projects.module';
+import { ProjectsModule } from './projects/projects.module'; // do not delete this!
 import { RouterModule } from '@angular/router';
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from './about/about.component'; // do not delete this!
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     // These components have access to AppModule imports
     AppComponent,
     NavigationBarComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

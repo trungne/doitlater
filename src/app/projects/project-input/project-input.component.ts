@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { ProjectService } from '../project.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-project-input',
   templateUrl: './project-input.component.html',
-  styleUrls: ['./project-input.component.scss']
+  styleUrls: ['./project-input.component.scss'],
+  providers: [MessageService]
 })
 export class ProjectInputComponent implements OnInit {
   private inputBox?: any;
@@ -13,7 +14,16 @@ export class ProjectInputComponent implements OnInit {
   private inputDescriptionField?: any;
   private inputBoxShown = false;
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService,
+              private messageService: MessageService) { }
+
+  addWarning(message: string){
+    const warning = document.querySelector(".p-message");
+    if (warning){
+      this.messageService.clear();
+    }
+    this.messageService.add({severity:'warn', summary:'Invalid Input', detail: message});
+  }
 
   ngOnInit(): void {
     this.inputBox = document.querySelector("#project-input-box");
@@ -50,12 +60,16 @@ export class ProjectInputComponent implements OnInit {
     name = name.trim();
     description = description.trim();
     if (!name || !description){
-      // TODO: display error
+      const message = (!name? "Title " : "Description ")
+      this.addWarning(message + "should not be empty");
       return;
     }
 
     this.projectService.addProject(name, description);
     this.hideInputBox();
   }
+
+
+
 
 }

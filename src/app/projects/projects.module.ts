@@ -7,6 +7,15 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { TaskComponent } from './task/task.component';
+
+// PrimeNg Imports
+import { ButtonModule } from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+
+
 
 @NgModule({
   declarations: [
@@ -15,7 +24,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     ProjectListComponent,
     ProjectInputComponent,
     ProjectOverviewComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    TaskComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +34,12 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     NbButtonModule,
     NbInputModule,
     NbAccordionModule,
+
+    // PrimeNG improts
+    ButtonModule,
+    InputTextModule,
+    MessagesModule,
+    MessageModule,
   ],
   exports: [
     ProjectsComponent

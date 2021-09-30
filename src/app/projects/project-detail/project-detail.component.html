@@ -1,11 +1,21 @@
-<button nbButton status="warning" (click)="goBack()">Back</button>
+<div *ngIf="!project">
+    Project does not exist!
+</div>
+
 <div *ngIf="project">
-    <p>
-        {{project.name}}
-    </p>
-    
+    <button nbButton status="warning" (click)="goBack()">Back</button>
+    <h1> 
+        {{project.name}} 
+    </h1>
+
     <p>
         {{project.description}}
     </p>
+    
+    <div id="task-input-box" style="display: flex;">
+        <input id="task-input-field" type="text" nbInput fullWidth status="info" placeholder="Enter a task">
+        <button nbButton status="info">Add</button>
+    </div>
+    
 </div>
 

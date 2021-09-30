@@ -1,43 +1,54 @@
-<button nbButton 
-    status="info" 
+<button pButton type ="button"
+    label="New Project"
     style="margin-bottom: 1em;"
-    (click)="toggleInputBox()">New Project</button>
+    class="p-button-raised"
+    (click)="toggleInputBox()"></button>
+
 <div id="project-input-box" (keydown.escape)="hideInputBox()">
     <nb-card >
         <nb-card-body >
            <!-- input box -->
-           <div (keydown.enter)="add(projectName.value, projectDescription.value)">
+           <div (keydown.enter)="add(projectName.value, projectDescription.value)"
+           style="display: flex; flex-direction: column; gap: 1em;">
 
-            <label class="subtitle"> Project's name </label>
-            <input id="project-input-name" 
+            <label for="project-input-name">Project's title</label>
+            <input 
+                id="project-input-name" 
                 type="text" 
-                nbInput 
-                fullWidth 
-                status="primary" 
-                placeholder="Keep it short" 
+                pInputText
                 autocomplete="off"
-                #projectName>
+                #projectName
+                >
+
+            <label for="project-input-description">Project's description</label>
+            <input  
+                id="project-input-description" 
+                type="text" 
+                pInputText
+                #projectDescription
+            >
             
-            <label class="subtitle"> Project's description </label>
-            <textarea  id="project-input-description" 
-                type="text" 
-                nbInput 
-                fullWidth 
-                status="basic" 
-                placeholder="Keep it brief" 
-                autocomplete="off"
-                #projectDescription>
-            </textarea>
 
             <!-- add button -->
             <div style="display:flex; justify-content: space-between;">
-                <button nbButton status="primary" (click)="add(projectName.value, projectDescription.value)">
-                    Add
+                <button 
+                pButton 
+                    label="Add"
+                    type="button"
+                    class="p-button-success"
+                    (click)="add(projectName.value, projectDescription.value)">
                 </button>
-                <button nbButton status="basic" (click)="hideInputBox()">
-                    Cancel
+
+                <button 
+                    pButton
+                    type="button"
+                    label="Cancel"
+                    class="p-button-secondary"
+                    (click)="hideInputBox()">
                 </button>
             </div>
+        <p-messages></p-messages>
+
             
         </div>
         </nb-card-body>
