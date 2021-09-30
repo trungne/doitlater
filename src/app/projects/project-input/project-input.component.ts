@@ -68,8 +68,4 @@ export class ProjectInputComponent implements OnInit {
     this.projectService.addProject(name, description);
     this.hideInputBox();
   }
-
-
-
-
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { ProjectsComponent } from './projects.component';
 import { NbAccordionModule, NbButtonModule, NbCardModule, NbInputModule, NbMenuModule } from '@nebular/theme';
 import { ProjectMenuComponent } from './project-menu/project-menu.component';
@@ -14,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 
@@ -29,6 +31,7 @@ import {MessageModule} from 'primeng/message';
   ],
   imports: [
     CommonModule,
+
     NbMenuModule,
     NbCardModule,
     NbButtonModule,
@@ -40,6 +43,7 @@ import {MessageModule} from 'primeng/message';
     InputTextModule,
     MessagesModule,
     MessageModule,
+    ConfirmDialogModule,
   ],
   exports: [
     ProjectsComponent

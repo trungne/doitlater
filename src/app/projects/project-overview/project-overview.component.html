@@ -1,11 +1,14 @@
 <nb-card>
-    <nb-card-header>{{ project.name }}</nb-card-header>
-    <nb-card-body>
-      {{ project.description }}
-    </nb-card-body>
-    <nb-card-footer style="display:flex; justify-content: space-between;">
-      <button nbButton (click)="openProject()"  status="primary">Open</button>
-      <button nbButton (click)="deleteProject()" status="danger">Delete</button>
-    </nb-card-footer>
+  <nb-card-header>
+    {{ project.name }}
+  </nb-card-header>
+  <nb-card-body >
+    {{ project.description }}
+  </nb-card-body>
+  <nb-card-footer style="display:flex; justify-content: space-between;">
+    <button pButton type="button" label="Open" (click)="openProject()"  class="p-button-rounded p-button-info"></button>
+    <button pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
+  </nb-card-footer>
 </nb-card>
-  
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
