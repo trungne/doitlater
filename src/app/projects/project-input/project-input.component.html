@@ -5,8 +5,8 @@
     (click)="toggleInputBox()"></button>
 
 <div id="project-input-box" (keydown.escape)="hideInputBox()">
-    <nb-card >
-        <nb-card-body >
+    <nb-card>
+        <nb-card-body>
            <!-- input box -->
            <div (keydown.enter)="add(projectName.value, projectDescription.value)"
            style="display: flex; flex-direction: column; gap: 1em;">
@@ -49,7 +49,6 @@
             </div>
         <p-messages></p-messages>
 
-            
         </div>
         </nb-card-body>
     </nb-card>

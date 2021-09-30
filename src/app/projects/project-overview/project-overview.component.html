@@ -1,14 +1,22 @@
-<nb-card>
-  <nb-card-header>
-    {{ project.name }}
-  </nb-card-header>
-  <nb-card-body >
-    {{ project.description }}
-  </nb-card-body>
-  <nb-card-footer style="display:flex; justify-content: space-between;">
-    <button pButton type="button" label="Open" (click)="openProject()"  class="p-button-rounded p-button-info"></button>
-    <button pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
-  </nb-card-footer>
-</nb-card>
+<div style="margin-bottom: 1em;">
+  <p-accordion>
+    <p-accordionTab >
+      <ng-template pTemplate="header">{{project.name}}</ng-template>
+      <ng-template pTemplate="content">
+        <p class="font-light">{{ project.description }}</p>
+        <app-task-input *ngIf="taskInputShown" (cancelEvent)="cancel()"></app-task-input>
+
+        <div *ngFor="let task of project.tasks">
+          <app-task [task]="task"></app-task>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <button pButton type="button" label="New Task" (click)="showTaskInput()" class="p-button-rounded p-button-success"></button>
+          <button pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
+        </div>
+        
+      </ng-template>
+    </p-accordionTab>
+  </p-accordion>  
+</div>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

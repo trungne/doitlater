@@ -25,8 +25,13 @@ export class Project {
     return this._description;
   }
 
+  get tasks(){
+    return this._tasks;
+  }
+
   addTask(task: Task){
-    this._tasks.push(task);    
+    this._tasks.push(task);
+    console.log(this._tasks);
   }
 
   removeTask(task: Task){

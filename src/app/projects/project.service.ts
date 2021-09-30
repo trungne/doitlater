@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PROJECTS } from './mock-projects';
 import { Project } from './project';
 import { Observable, of } from 'rxjs';
+import { Task } from './task/task';
 
 
 @Injectable({
@@ -37,6 +38,5 @@ export class ProjectService {
     if (found > -1){
       PROJECTS.splice(found, 1);
     }
-    
   }
 }

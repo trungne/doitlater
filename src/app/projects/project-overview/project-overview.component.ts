@@ -12,8 +12,8 @@ import {ConfirmationService} from 'primeng/api';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() public project!: Project;
+  public taskInputShown: boolean = false;
   constructor(
-    private router: Router,
     private projectService: ProjectService,
     private confirmationService: ConfirmationService) { }
 
@@ -29,7 +29,11 @@ export class ProjectOverviewComponent implements OnInit {
     });
 }
 
-  openProject(): void {
-    this.router.navigate([`/projects/${this.project.id}`])
+  showTaskInput(){
+    this.taskInputShown = true;
+  }
+
+  cancel(){
+    this.taskInputShown = false;
   }
 }

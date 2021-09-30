@@ -1,1 +1,14 @@
-<p>task works!</p>
+<div style=
+    "display: flex; 
+    justify-content: space-between;
+    align-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+    ">
+    <div style="display: flex; gap: 1em; flex-wrap: wrap;">
+        <p-checkbox name="groupname" value="val1" [(ngModel)]="desp"></p-checkbox> 
+        <p> {{ task.description }} </p>
+    </div>
+    <button pButton type="button" label="&times;" class="p-button-danger"></button>    
+</div>
