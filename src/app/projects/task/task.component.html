@@ -1,14 +1,7 @@
-<div style=
-    "display: flex; 
-    justify-content: space-between;
-    align-content: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    flex-wrap: wrap;
-    ">
-    <div style="display: flex; gap: 1em; flex-wrap: wrap;">
-        <p-checkbox name="groupname" value="val1" [(ngModel)]="desp"></p-checkbox> 
-        <p> {{ task.description }} </p>
-    </div>
-    <button pButton type="button" label="&times;" class="p-button-danger"></button>    
-</div>
+<nb-card size="tiny" style="width: 20%">
+    <nb-card-header>
+        <button pButton type="button" label="&times;" class="p-button-danger p-button-sm" (click)="deleteTask()"></button>
+    </nb-card-header>
+    {{ task.description }}
+</nb-card>
+

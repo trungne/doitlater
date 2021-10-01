@@ -36,4 +36,12 @@ export class ProjectOverviewComponent implements OnInit {
   cancel(){
     this.taskInputShown = false;
   }
+
+  // delegate this function to service
+  deleteTask(id: string){
+    const found = this.project.tasks.findIndex(t => t.id === id);
+    if (found > -1){
+      this.project.tasks.splice(found, 1);
+    }
+  }
 }

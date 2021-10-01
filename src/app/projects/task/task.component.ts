@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Task } from './task';
 
 
@@ -6,11 +6,11 @@ import { Task } from './task';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss', '../../../../node_modules/primeflex/primeflex.css'],
+  styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent implements OnInit {
   @Input() task!: Task;
-  desp!: string;
+  @Output() deleteTaskEvent = new EventEmitter<string>();
 
   constructor() { }
 
@@ -18,11 +18,6 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(){
-
+    this.deleteTaskEvent.emit(this.task.id);
   }
-
-  addTask(){
-    
-  }
-
 }
