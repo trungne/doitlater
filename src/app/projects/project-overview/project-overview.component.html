@@ -1,27 +1,36 @@
-<div style="margin-bottom: 1em;">
-  <p-accordion>
-    <p-accordionTab >
-      <ng-template pTemplate="header">{{project.name}}</ng-template>
-      <ng-template pTemplate="content">
-        <p class="font-light">{{ project.description }}</p>
-        <app-task-input *ngIf="taskInputShown" (cancelEvent)="cancel()" [project]="project"></app-task-input>
+<p-accordion>
+  <p-accordionTab>
+    <ng-template pTemplate="header">{{project.name}}</ng-template>
+    
+    <ng-template pTemplate="content">
+      <div style="margin: 0.5em;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;">
+        <div>{{ project.description }}</div>
+      
+      <app-task-input [project]="project"></app-task-input>
 
-        <div style="display: flex; flex-wrap: wrap;">
-          <app-task 
-            *ngFor="let task of project.tasks" 
-            [task]="task"
-            (deleteTaskEvent)="deleteTask($event)"></app-task>
-        </div>
-        
+      <div *ngIf="project.tasks.length == 0">
+        <i>There are no tasks in this project!</i>
+      </div>
 
-        <div style="display: flex; justify-content: space-between;">
-          <button pButton type="button" label="New Task" (click)="ToggleTaskInput()" class="p-button-rounded p-button-success"></button>
-          <button pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
-        </div>
-        
-      </ng-template>
-    </p-accordionTab>
-  </p-accordion>  
-</div>
+      <div style="display: flex; flex-wrap: wrap;">
+        <app-task 
+          *ngFor="let task of project.tasks" 
+          [task]="task"
+          (deleteTaskEvent)="deleteTask($event)"></app-task>
+      </div>
+      
+
+      <div style="display: flex;">
+        <button style="margin-left: auto;" pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
+      </div>
+      </div>
+      
+      
+    </ng-template>
+  </p-accordionTab>
+</p-accordion>  
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,6 +1,5 @@
-<div id="task-input-box" style="display: flex; margin: 1em;">
+<div id="task-input-box" style="display: flex;">
     <input id="task-input-field" type="text" nbInput fullWidth status="info" placeholder="Enter a task" #taskDescription>
     <button nbButton status="info" (click)="addTask(taskDescription.value)">Add</button>
-    <button nbButton status="info" (click)="cancel()">cancel</button>
 </div>
 <p-messages></p-messages>

@@ -1,5 +1,8 @@
-<app-project-input></app-project-input>
+<div style="margin: 0em 2em 0em 2em;">
+  <app-project-input></app-project-input>
+  
+  <div *ngFor= "let project of projects">
+    <app-project-overview [project] = "project"></app-project-overview>
+  </div>
 
-<div *ngFor= "let project of projects">
-  <app-project-overview [project] = "project"></app-project-overview>
 </div>

@@ -22,6 +22,7 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
 import { TaskInputComponent } from './task-input/task-input.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 
 
@@ -33,7 +34,8 @@ import { TaskInputComponent } from './task-input/task-input.component';
     ProjectInputComponent,
     ProjectOverviewComponent,
     TaskComponent,
-    TaskInputComponent
+    TaskInputComponent,
+    ProjectDetailComponent
   ],
   imports: [
     CommonModule,

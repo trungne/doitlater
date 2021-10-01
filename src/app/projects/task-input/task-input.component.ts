@@ -12,7 +12,6 @@ import { Task } from '../task/task';
 export class TaskInputComponent implements OnInit {
   @Input() project!: Project;
   private taskInputField: any;
-  @Output() cancelEvent = new EventEmitter<string>();
   constructor(
     private messageService: MessageService) { }
 
@@ -33,10 +32,6 @@ export class TaskInputComponent implements OnInit {
     }
     const newTask = new Task(description);
     this.project.addTask(newTask);
-  }
-
-  cancel(){
-    this.cancelEvent.emit(); // the emitted value is arbitrary
   }
 
   addWarning(message: string){

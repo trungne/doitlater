@@ -12,7 +12,7 @@ import {ConfirmationService} from 'primeng/api';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() public project!: Project;
-  public taskInputShown: boolean = false;
+  
   constructor(
     private projectService: ProjectService,
     private confirmationService: ConfirmationService) { }
@@ -27,14 +27,6 @@ export class ProjectOverviewComponent implements OnInit {
           this.projectService.deleteProject(this.project.id);
         }
     });
-}
-
-  ToggleTaskInput(){
-    this.taskInputShown = !this.taskInputShown;
-  }
-
-  cancel(){
-    this.taskInputShown = false;
   }
 
   // delegate this function to service

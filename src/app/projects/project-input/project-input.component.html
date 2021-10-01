@@ -1,8 +1,12 @@
-<button pButton type ="button"
-    label="New Project"
-    style="margin-bottom: 1em;"
-    class="p-button-raised"
-    (click)="toggleInputBox()"></button>
+<div style="display: flex;">
+    <button pButton type ="button"
+    style="margin-left: auto;"
+    class="p-button-raised p-button-lg"
+    (click)="toggleInputBox()"
+    icon="pi pi-plus">
+    </button>
+</div>
+
 
 <div id="project-input-box" (keydown.escape)="hideInputBox()">
     <nb-card>
@@ -11,7 +15,7 @@
            <div (keydown.enter)="add(projectName.value, projectDescription.value)"
            style="display: flex; flex-direction: column; gap: 1em;">
 
-            <label for="project-input-name">Project's title</label>
+            <label for="project-input-name"><i>Project's title</i></label>
             <input 
                 id="project-input-name" 
                 type="text" 
@@ -20,7 +24,7 @@
                 #projectName
                 >
 
-            <label for="project-input-description">Project's description</label>
+            <label for="project-input-description"><i>Project's description</i></label>
             <input  
                 id="project-input-description" 
                 type="text" 
