@@ -1,1 +1,26 @@
-<p>project-detail works!</p>
+
+<app-task-input [project]="project"></app-task-input>
+<div style="display: flex; ">
+    <nb-card size="medium" status="info" style="flex-grow: 1;">
+        <nb-card-header style="height: 3em; text-align: center;">To do</nb-card-header>
+        <nb-card-body style="padding: 0 0 0 0 !important;">
+            <app-task style="margin: 1em 0em 1em 0em !important" *ngFor="let task of project.toDoTasks" [task] = "task"></app-task>
+        </nb-card-body>
+    </nb-card>
+    
+    <nb-card size="medium" status="warning" style="flex-grow: 1; text-align: center;">
+        <nb-card-header style="height: 3em;">Doing</nb-card-header>
+        <nb-card-body>
+          
+        </nb-card-body>
+    </nb-card>
+    
+    <nb-card size="medium" status="success" style="flex-grow: 1; text-align: center;">
+        <nb-card-header style="height: 3em;">Done</nb-card-header>
+        <nb-card-body>
+          
+        </nb-card-body>
+    </nb-card>
+</div>
+      
+

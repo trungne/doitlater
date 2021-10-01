@@ -32,6 +32,7 @@ export class TaskInputComponent implements OnInit {
     }
     const newTask = new Task(description);
     this.project.addTask(newTask);
+    this.taskInputField.value = "";
   }
 
   addWarning(message: string){

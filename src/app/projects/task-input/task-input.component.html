@@ -1,4 +1,4 @@
-<div id="task-input-box" style="display: flex;">
+<div id="task-input-box" style="display: flex;" (keydown.enter)="addTask(taskDescription.value)">
     <input id="task-input-field" type="text" nbInput fullWidth status="info" placeholder="Enter a task" #taskDescription>
     <button nbButton status="info" (click)="addTask(taskDescription.value)">Add</button>
 </div>

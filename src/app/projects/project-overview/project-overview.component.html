@@ -3,32 +3,17 @@
     <ng-template pTemplate="header">{{project.name}}</ng-template>
     
     <ng-template pTemplate="content">
-      <div style="margin: 0.5em;
+      <div style="
                 display: flex;
                 flex-direction: column;
                 gap: 1em;">
         <div>{{ project.description }}</div>
-      
-      <app-task-input [project]="project"></app-task-input>
-
-      <div *ngIf="project.tasks.length == 0">
-        <i>There are no tasks in this project!</i>
+        <app-project-detail [project]="project"></app-project-detail>
+        
+        <div style="display: flex;">
+          <button style="margin-left: auto;" pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
+        </div>
       </div>
-
-      <div style="display: flex; flex-wrap: wrap;">
-        <app-task 
-          *ngFor="let task of project.tasks" 
-          [task]="task"
-          (deleteTaskEvent)="deleteTask($event)"></app-task>
-      </div>
-      
-
-      <div style="display: flex;">
-        <button style="margin-left: auto;" pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
-      </div>
-      </div>
-      
-      
     </ng-template>
   </p-accordionTab>
 </p-accordion>  

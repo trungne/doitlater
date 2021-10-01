@@ -12,7 +12,7 @@ import {ConfirmationService} from 'primeng/api';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() public project!: Project;
-  
+
   constructor(
     private projectService: ProjectService,
     private confirmationService: ConfirmationService) { }
@@ -27,13 +27,5 @@ export class ProjectOverviewComponent implements OnInit {
           this.projectService.deleteProject(this.project.id);
         }
     });
-  }
-
-  // delegate this function to service
-  deleteTask(id: string){
-    const found = this.project.tasks.findIndex(t => t.id === id);
-    if (found > -1){
-      this.project.tasks.splice(found, 1);
-    }
   }
 }

@@ -10,14 +10,9 @@ import { Task } from './task';
 })
 export class TaskComponent implements OnInit {
   @Input() task!: Task;
-  @Output() deleteTaskEvent = new EventEmitter<string>();
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  deleteTask(){
-    this.deleteTaskEvent.emit(this.task.id);
-  }
 }

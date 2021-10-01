@@ -1,4 +1,4 @@
-import { Task } from "./task/task";
+import { Task, TaskStatus } from "./task/task";
 
 export class Project {
   private _id: string;
@@ -29,6 +29,19 @@ export class Project {
     return this._tasks;
   }
 
+  get toDoTasks(){
+    console.log("todotasks called")
+    return this._tasks.filter(t => t.status === TaskStatus.Todo);
+  }
+
+  get doingTasks(){
+    return this._tasks.filter(t => t.status === TaskStatus.Doing);
+  }
+
+  get doneTasks(){
+    return this._tasks.filter(t => t.status === TaskStatus.Done);
+  }
+
   addTask(task: Task){
     this._tasks.push(task);
     console.log(this._tasks);
@@ -37,4 +50,6 @@ export class Project {
   removeTask(task: Task){
     this._tasks = this._tasks.filter(t => t.id !== task.id)
   }
+
+  
 }
