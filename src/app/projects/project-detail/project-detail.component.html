@@ -1,27 +1,27 @@
 
 <app-task-input [project]="project"></app-task-input>
-<div class="p-grid">
-    <div class="p-col-fixed" style="width: 30%">
-        <nb-card size="medium" status="info" style="flex-grow: 1;">
-            <nb-card-header style="height: 3em; text-align: center;">To do</nb-card-header>
+<div class="p-grid" style="display: flex">
+    <div class="p-col-fixed" style="width: 33.333%">
+        <nb-card size="medium" status="info" style="text-align: center;">
+            <nb-card-header>To do</nb-card-header>
             <nb-card-body style="padding: 0 0 0 0 !important;">
                 <app-task style="margin: 1em 0em 1em 0em !important; word-wrap: break-word;" *ngFor="let task of project.toDoTasks" [task] = "task"></app-task>
             </nb-card-body>
         </nb-card>
     </div>
     
-    <div class="p-col-fixed" style="width: 30%">
+    <div class="p-col-fixed" style="width: 33.333%">
         <nb-card size="medium" status="warning" style="text-align: center;">
-            <nb-card-header style="height: 3em;">Doing</nb-card-header>
+            <nb-card-header>Doing</nb-card-header>
             <nb-card-body>
               
             </nb-card-body>
         </nb-card>
     </div>
 
-    <div class="p-col-fixed" style="width: 30%">
+    <div class="p-col-fixed" style="width: 33.333%">
         <nb-card size="medium" status="success" style="text-align: center;">
-            <nb-card-header style="height: 3em;">Done</nb-card-header>
+            <nb-card-header>Done</nb-card-header>
             <nb-card-body>
               
             </nb-card-body>
