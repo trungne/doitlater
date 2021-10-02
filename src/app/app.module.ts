@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import { NbThemeModule, 
   NbLayoutModule, 
   NbButtonModule, 
@@ -18,6 +19,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ProjectsModule } from './projects/projects.module'; // do not delete this!
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component'; // do not delete this!
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { AboutComponent } from './about/about.component'; // do not delete this!
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
+    HomeModule,
+    
 
     // Nebula Imports
     NbThemeModule.forRoot(),

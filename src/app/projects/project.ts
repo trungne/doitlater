@@ -30,7 +30,6 @@ export class Project {
   }
 
   get toDoTasks(){
-    console.log("todotasks called")
     return this._tasks.filter(t => t.status === TaskStatus.Todo);
   }
 
@@ -44,7 +43,6 @@ export class Project {
 
   addTask(task: Task){
     this._tasks.push(task);
-    console.log(this._tasks);
   }
 
   removeTask(task: Task){

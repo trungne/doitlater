@@ -1,30 +1,55 @@
 
-<app-task-input [project]="project"></app-task-input>
-<div class="p-grid" style="display: flex">
+<app-task-input [projectID]="project.id"></app-task-input>
+
+<div class="p-grid" style="display: flex" cdkDropListGroup>
+    <!-- To do task column -->
     <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="info" style="text-align: center;">
+        <nb-card size="medium" status="info" id={{toDoTasksID}}>
             <nb-card-header>To do</nb-card-header>
-            <nb-card-body style="padding: 0 0 0 0 !important;">
-                <app-task style="margin: 1em 0em 1em 0em !important; word-wrap: break-word;" *ngFor="let task of project.toDoTasks" [task] = "task"></app-task>
+
+            <nb-card-body 
+                cdkDropList
+                [cdkDropListData]="project.toDoTasks"
+                (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let task of project.toDoTasks" class="to-do-task" cdkDrag [cdkDragData]="task">
+                    <app-task [task]="task" ></app-task>
+                </div>
             </nb-card-body>
+            
         </nb-card>
     </div>
     
+    <!-- Task in progress column -->
     <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="warning" style="text-align: center;">
+        <nb-card size="medium" status="warning" id={{doingTasksID}}>
             <nb-card-header>Doing</nb-card-header>
-            <nb-card-body>
-              
+
+            <nb-card-body 
+                cdkDropList
+                [cdkDropListData]="project.doingTasks"
+                (cdkDropListDropped)="drop($event)" >
+                <div *ngFor="let task of project.doingTasks" class="doing-task" cdkDrag [cdkDragData]="task">
+                    <app-task [task]="task"></app-task>
+                </div>
             </nb-card-body>
+
         </nb-card>
     </div>
 
+    <!-- Finished tasks -->
     <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="success" style="text-align: center;">
+        <nb-card size="medium" status="success" id={{doneTasksID}}>
             <nb-card-header>Done</nb-card-header>
-            <nb-card-body>
-              
+
+            <nb-card-body 
+                cdkDropList
+                [cdkDropListData]="project.doneTasks"
+                (cdkDropListDropped)="drop($event)" >
+                <div *ngFor="let task of project.doneTasks" cdkDrag [cdkDragData]="task">
+                    <app-task [task]="task"></app-task>
+                </div>
             </nb-card-body>
+
         </nb-card>
     </div>
     

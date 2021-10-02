@@ -9,53 +9,51 @@
 
 
 <div id="project-input-box" (keydown.escape)="hideInputBox()">
-    <nb-card>
-        <nb-card-body>
-           <!-- input box -->
-           <div (keydown.enter)="add(projectName.value, projectDescription.value)"
-           style="display: flex; flex-direction: column; gap: 1em;">
+    <p-card>
+        <!-- input box -->
+        <div (keydown.enter)="add(projectName.value, projectDescription.value)"
+        style="display: flex; flex-direction: column; gap: 1em;">
 
-            <label for="project-input-name"><i>Project's title</i></label>
-            <input 
-                id="project-input-name" 
-                type="text" 
-                pInputText
-                autocomplete="off"
-                #projectName
-                >
+         <label for="project-input-name"><i>Project's title</i></label>
+         <input 
+             id="project-input-name" 
+             type="text" 
+             pInputText
+             autocomplete="off"
+             #projectName
+             >
 
-            <label for="project-input-description"><i>Project's description</i></label>
-            <input  
-                id="project-input-description" 
-                type="text" 
-                pInputText
-                #projectDescription
-            >
-            
-            <!-- add button -->
-            <div style="display:flex; justify-content: space-between;">
-                <button 
-                pButton 
-                    label="Add"
-                    type="button"
-                    class="p-button-success"
-                    
-                    (click)="add(projectName.value, projectDescription.value)">
-                </button>
+         <label for="project-input-description"><i>Project's description</i></label>
+         <input  
+             id="project-input-description" 
+             type="text" 
+             pInputText
+             #projectDescription
+         >
+         
+         <!-- add button -->
+         <div style="display:flex; justify-content: space-between;">
+             <button 
+             pButton 
+                 label="Add"
+                 type="button"
+                 class="p-button-success"
+                 
+                 (click)="add(projectName.value, projectDescription.value)">
+             </button>
 
-                <button 
-                    pButton
-                    type="button"
-                    label="Cancel"
-                    class="p-button-secondary"
-                    (click)="hideInputBox()">
-                </button>
-            </div>
-        <p-messages></p-messages>
+             <button 
+                 pButton
+                 type="button"
+                 label="Cancel"
+                 class="p-button-secondary"
+                 (click)="hideInputBox()">
+             </button>
+         </div>
+     <p-messages></p-messages>
 
-        </div>
-        </nb-card-body>
-    </nb-card>
+     </div>
+    </p-card>
 </div>
 
 

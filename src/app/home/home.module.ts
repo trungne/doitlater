@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
+import {DragDropModule} from 'primeng/dragdrop';
+import { PanelModule } from 'primeng/panel';
 
 
 
@@ -9,7 +11,9 @@ import { HomeComponent } from './home.component';
     HomeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DragDropModule,
+    PanelModule
   ]
 })
 export class HomeModule { }

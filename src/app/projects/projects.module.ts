@@ -1,14 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
+// Components Imports
 import { ProjectsComponent } from './projects.component';
-import { NbAccordionModule, NbButtonModule, NbCardModule, NbInputModule, NbMenuModule } from '@nebular/theme';
+import { TaskComponent } from './task/task.component';
 import { ProjectMenuComponent } from './project-menu/project-menu.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
-import { TaskComponent } from './task/task.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+
+// Nebular Imports
+import { NbButtonModule, 
+  NbCardModule, 
+  NbInputModule,
+  NbMenuModule } from '@nebular/theme';
+
+
 
 // PrimeNg Imports
 import { ButtonModule } from 'primeng/button';
@@ -22,9 +32,6 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
 import { TaskInputComponent } from './task-input/task-input.component';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
-
-
 
 @NgModule({
   declarations: [
@@ -40,12 +47,13 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
   imports: [
     CommonModule,
     FormsModule,
+    DragDropModule,
 
+    // Nedular Imports
     NbMenuModule,
     NbCardModule,
     NbButtonModule,
     NbInputModule,
-    NbAccordionModule,
 
     // PrimeNG improts
     ButtonModule,
@@ -57,7 +65,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     PanelModule,
     ToastModule,
     CardModule,
-    AccordionModule
+    AccordionModule,
   ],
   exports: [
     ProjectsComponent

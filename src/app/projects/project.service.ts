@@ -39,4 +39,11 @@ export class ProjectService {
       PROJECTS.splice(found, 1);
     }
   }
+
+  addTask(projectID: string, task: Task){    
+    const found = PROJECTS.findIndex(project => project.id === projectID);
+    if (found > -1){
+      PROJECTS[found].addTask(task);
+    }
+  }
 }

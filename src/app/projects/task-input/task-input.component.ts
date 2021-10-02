@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Project } from '../project';
+import { ProjectService } from '../project.service';
 import { Task } from '../task/task';
 
 @Component({
@@ -10,10 +11,11 @@ import { Task } from '../task/task';
   providers: [MessageService]
 })
 export class TaskInputComponent implements OnInit {
-  @Input() project!: Project;
+  @Input() projectID!: string;
   private taskInputField: any;
   constructor(
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private projectService: ProjectService) { }
 
   ngOnInit(): void {
     
@@ -31,7 +33,7 @@ export class TaskInputComponent implements OnInit {
       return;
     }
     const newTask = new Task(description);
-    this.project.addTask(newTask);
+    this.projectService.addTask(this.projectID, newTask);
     this.taskInputField.value = "";
   }
 
