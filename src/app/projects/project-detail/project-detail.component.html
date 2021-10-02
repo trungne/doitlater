@@ -1,4 +1,6 @@
-
+<div>
+    {{project.description}}
+</div>
 <app-task-input [projectID]="project.id"></app-task-input>
 <div class="grid" cdkDropListGroup id="draggable-area">
     <div class="col">
@@ -6,14 +8,15 @@
         <div class="grid">
             <!-- To do task column -->
             <div class="col-4">
-                <nb-card size="medium" status="info">
+                <nb-card size="medium" status="info" id="to-do-tasks">
                     <nb-card-header>To do</nb-card-header>
     
                     <nb-card-body 
                         cdkDropList
                         [cdkDropListData]="project.toDoTasks"
                         (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let task of project.toDoTasks" class="to-do-task" cdkDrag 
+                        <div *ngFor="let task of project.toDoTasks" 
+                        cdkDrag 
                         [cdkDragData]="task"
                         cdkDragBoundary="#draggable-area">
                             <app-task [task]="task" ></app-task>
@@ -25,14 +28,14 @@
     
             <!-- Task in progress column -->
             <div class="col-4">
-                <nb-card size="medium" status="warning">
+                <nb-card size="medium" status="warning" id="doing-tasks">
                     <nb-card-header>Doing</nb-card-header>
     
                     <nb-card-body 
                         cdkDropList
                         [cdkDropListData]="project.doingTasks"
                         (cdkDropListDropped)="drop($event)" >
-                        <div *ngFor="let task of project.doingTasks" class="doing-task" 
+                        <div *ngFor="let task of project.doingTasks"
                         [cdkDragData]="task"
                         cdkDrag cdkDragBoundary="#draggable-area">
                             <app-task [task]="task"></app-task>
@@ -44,14 +47,15 @@
     
             <!-- Finished tasks -->
             <div class="col-4">
-                <nb-card size="medium" status="success">
+                <nb-card size="medium" status="success" id="done-tasks">
                     <nb-card-header>Done</nb-card-header>
     
                     <nb-card-body 
                         cdkDropList
                         [cdkDropListData]="project.doneTasks"
                         (cdkDropListDropped)="drop($event)" >
-                        <div *ngFor="let task of project.doneTasks" cdkDrag 
+                        <div *ngFor="let task of project.doneTasks" 
+                        cdkDrag 
                         [cdkDragData]="task"
                         cdkDragBoundary="#draggable-area">
                             <app-task [task]="task"></app-task>

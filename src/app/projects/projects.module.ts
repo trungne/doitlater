@@ -11,14 +11,13 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { TaskInputComponent } from './task-input/task-input.component';
 
 // Nebular Imports
 import { NbButtonModule, 
   NbCardModule, 
   NbInputModule,
   NbMenuModule } from '@nebular/theme';
-
-
 
 // PrimeNg Imports
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +30,8 @@ import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
-import { TaskInputComponent } from './task-input/task-input.component';
+import {MenuModule} from 'primeng/menu';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +66,7 @@ import { TaskInputComponent } from './task-input/task-input.component';
     ToastModule,
     CardModule,
     AccordionModule,
+    MenuModule
   ],
   exports: [
     ProjectsComponent

@@ -1,21 +1,19 @@
-<p-accordion>
-  <p-accordionTab>
-    <ng-template pTemplate="header">{{project.name}}</ng-template>
-    
-    <ng-template pTemplate="content">
-      <div style="
-                display: flex;
-                flex-direction: column;
-                gap: 1em;">
-        <div>{{ project.description }}</div>
-        <app-project-detail [project]="project"></app-project-detail>
-        
-        <div style="display: flex;">
-          <button style="margin-left: auto;" pButton type="button" label="Delete" (click)="deleteProject()" class="p-button-rounded p-button-danger"></button>
-        </div>
-      </div>
+<p-panel header={{project.name}} [toggleable]="true" [collapsed]="true">
+    <ng-template pTemplate="icons">
+            <button pButton class="p-panel-header-icon">
+              <span class="p-link pi pi-cog" (click)="menu.toggle($event)"></span>
+            </button>
+            
+            <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
     </ng-template>
-  </p-accordionTab>
-</p-accordion>  
+    <app-project-detail [project]="project"></app-project-detail>    
+</p-panel>
+
+
+
+
+
+
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
