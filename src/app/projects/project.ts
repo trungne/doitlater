@@ -4,13 +4,19 @@ export class Project {
   private _id: string;
   private _name: string;
   private _description: string;
-  private _tasks: Task[];
+
+  private _todoTasks: Task[];
+  private _doingTasks: Task[];
+  private _doneTasks: Task[];
 
   constructor(id: string, name: string, description: string){
     this._id = id;
     this._name = name;
     this._description = description;
-    this._tasks = [];
+    
+    this._todoTasks = [];
+    this._doingTasks = [];
+    this._doneTasks = [];
   }
 
   get id(){
@@ -26,27 +32,44 @@ export class Project {
   }
 
   get tasks(){
-    return this._tasks;
+    return [...this._todoTasks, ...this._doingTasks, ...this._doneTasks];
   }
 
   get toDoTasks(){
-    return this._tasks.filter(t => t.status === TaskStatus.Todo);
+    return this._todoTasks;
   }
 
   get doingTasks(){
-    return this._tasks.filter(t => t.status === TaskStatus.Doing);
+    return this._doingTasks;
   }
 
   get doneTasks(){
-    return this._tasks.filter(t => t.status === TaskStatus.Done);
+    return this._doneTasks
+  }
+
+  // return a task list according to task status
+  private findTaskList(status: TaskStatus): Task[]{
+    switch (status) {
+      case TaskStatus.Doing:
+        return this._doingTasks;
+
+      case TaskStatus.Done:
+        return this._doneTasks;
+
+      default:
+        return this._todoTasks;
+    }
   }
 
   addTask(task: Task){
-    this._tasks.push(task);
+    const tasklist = this.findTaskList(task.status);
+    tasklist.push(task);
   }
 
+  // TODO: this method is not complete
   removeTask(task: Task){
-    this._tasks = this._tasks.filter(t => t.id !== task.id)
+    let tasklist = this.findTaskList(task.status);
+    tasklist = tasklist.filter(t => t.id !== task.id)
   }
 
   
