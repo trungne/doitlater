@@ -46,4 +46,11 @@ export class ProjectService {
       PROJECTS[found].addTask(task);
     }
   }
+
+  removeTask(projectID: string, task: Task){
+    const found = PROJECTS.findIndex(project => project.id === projectID);
+    if (found > -1){
+      PROJECTS[found].removeTask(task);
+    }
+  }
 }

@@ -1,56 +1,71 @@
 
 <app-task-input [projectID]="project.id"></app-task-input>
-
-<div class="p-grid" style="display: flex" cdkDropListGroup id="tasks-group" >
-    <!-- To do task column -->
-    <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="info">
-            <nb-card-header>To do</nb-card-header>
-
-            <nb-card-body 
-                cdkDropList
-                [cdkDropListData]="project.toDoTasks"
-                (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let task of project.toDoTasks" class="to-do-task" cdkDrag cdkDragBoundary="#tasks-group">
-                    <app-task [task]="task" ></app-task>
-                </div>
-            </nb-card-body>
-
-        </nb-card>
-    </div>
+<div class="grid" cdkDropListGroup id="draggable-area">
+    <div class="col">
+        <!-- tasks columns -->
+        <div class="grid">
+            <!-- To do task column -->
+            <div class="col-4">
+                <nb-card size="medium" status="info">
+                    <nb-card-header>To do</nb-card-header>
     
-    <!-- Task in progress column -->
-    <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="warning">
-            <nb-card-header>Doing</nb-card-header>
-
-            <nb-card-body 
-                cdkDropList
-                [cdkDropListData]="project.doingTasks"
-                (cdkDropListDropped)="drop($event)" >
-                <div *ngFor="let task of project.doingTasks" class="doing-task" cdkDrag cdkDragBoundary="#tasks-group">
-                    <app-task [task]="task"></app-task>
-                </div>
-            </nb-card-body>
-
-        </nb-card>
-    </div>
-
-    <!-- Finished tasks -->
-    <div class="p-col-fixed" style="width: 33.333%">
-        <nb-card size="medium" status="success">
-            <nb-card-header>Done</nb-card-header>
-
-            <nb-card-body 
-                cdkDropList
-                [cdkDropListData]="project.doneTasks"
-                (cdkDropListDropped)="drop($event)" >
-                <div *ngFor="let task of project.doneTasks" cdkDrag cdkDragBoundary="#tasks-group">
-                    <app-task [task]="task"></app-task>
-                </div>
-            </nb-card-body>
-
-        </nb-card>
-    </div>
+                    <nb-card-body 
+                        cdkDropList
+                        [cdkDropListData]="project.toDoTasks"
+                        (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let task of project.toDoTasks" class="to-do-task" cdkDrag 
+                        [cdkDragData]="task"
+                        cdkDragBoundary="#draggable-area">
+                            <app-task [task]="task" ></app-task>
+                        </div>
+                    </nb-card-body>
     
+                </nb-card>
+            </div>
+    
+            <!-- Task in progress column -->
+            <div class="col-4">
+                <nb-card size="medium" status="warning">
+                    <nb-card-header>Doing</nb-card-header>
+    
+                    <nb-card-body 
+                        cdkDropList
+                        [cdkDropListData]="project.doingTasks"
+                        (cdkDropListDropped)="drop($event)" >
+                        <div *ngFor="let task of project.doingTasks" class="doing-task" 
+                        [cdkDragData]="task"
+                        cdkDrag cdkDragBoundary="#draggable-area">
+                            <app-task [task]="task"></app-task>
+                        </div>
+                    </nb-card-body>
+    
+                </nb-card>
+            </div>
+    
+            <!-- Finished tasks -->
+            <div class="col-4">
+                <nb-card size="medium" status="success">
+                    <nb-card-header>Done</nb-card-header>
+    
+                    <nb-card-body 
+                        cdkDropList
+                        [cdkDropListData]="project.doneTasks"
+                        (cdkDropListDropped)="drop($event)" >
+                        <div *ngFor="let task of project.doneTasks" cdkDrag 
+                        [cdkDragData]="task"
+                        cdkDragBoundary="#draggable-area">
+                            <app-task [task]="task"></app-task>
+                        </div>
+                    </nb-card-body>
+    
+                </nb-card>
+            </div>
+        </div>
+
+        <!-- Delete box -->
+        <div class="col delete-box" cdkDropList
+        (cdkDropListDropped)="drop($event)">
+            <i class="pi pi-trash"></i>
+        </div>
+    </div>
 </div>

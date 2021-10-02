@@ -66,10 +66,12 @@ export class Project {
     tasklist.push(task);
   }
 
-  // TODO: this method is not complete
   removeTask(task: Task){
-    let tasklist = this.findTaskList(task.status);
-    tasklist = tasklist.filter(t => t.id !== task.id)
+    const tasklist = this.findTaskList(task.status);
+    const found = tasklist.findIndex(t => t.id === task.id);
+    if (found > -1){
+      tasklist.splice(found, 1);
+    }
   }
 
   
