@@ -11,12 +11,7 @@ import { Task } from './task/task';
 export class ProjectService {
   constructor() { }
 
-  generateId(): string{
-    const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
-    const time: number = Date.now();
-    const id = `${randomNum}-project-${time}`.replace('.', '');
-    return id;
-  }
+  
 
   getProjects(): Observable<Project[]> {
     return of(PROJECTS);
@@ -28,8 +23,7 @@ export class ProjectService {
   }
 
   addProject(name: string, description: string): void{
-    const id = this.generateId();
-    const newProject = new Project(id, name, description);
+    const newProject = new Project(name, description);
     PROJECTS.push(newProject);
   }
 

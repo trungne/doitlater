@@ -9,14 +9,21 @@ export class Project {
   private _doingTasks: Task[];
   private _doneTasks: Task[];
 
-  constructor(id: string, name: string, description: string){
-    this._id = id;
+  constructor(name: string, description: string){
+    this._id = this.generateId();
     this._name = name;
     this._description = description;
     
     this._todoTasks = [];
     this._doingTasks = [];
     this._doneTasks = [];
+  }
+
+  generateId(): string{
+    const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
+    const time: number = Date.now();
+    const id = `${randomNum}-project-${time}`.replace('.', '');
+    return id;
   }
 
   get id(){

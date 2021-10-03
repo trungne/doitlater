@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "doitlater-trungne": {
+      "hosting": {
+        "do-it-later": [
+          "doitlater-trungne"
+        ]
+      }
+    }
+  }
+}
