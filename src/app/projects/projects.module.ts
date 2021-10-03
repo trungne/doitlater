@@ -14,10 +14,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { TaskInputComponent } from './task-input/task-input.component';
 
 // Nebular Imports
-import { NbButtonModule, 
-  NbCardModule, 
-  NbInputModule,
-  NbMenuModule } from '@nebular/theme';
+import { NbCardModule } from '@nebular/theme';
 
 // PrimeNg Imports
 import { ButtonModule } from 'primeng/button';
@@ -50,10 +47,7 @@ import {MenuModule} from 'primeng/menu';
     DragDropModule,
 
     // Nedular Imports
-    NbMenuModule,
     NbCardModule,
-    NbButtonModule,
-    NbInputModule,
 
     // PrimeNG improts
     ButtonModule,

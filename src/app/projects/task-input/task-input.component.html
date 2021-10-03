@@ -1,5 +1,8 @@
-<div id="task-input-box" style="display: flex;" (keydown.enter)="addTask(taskDescription.value)">
-    <input id="task-input-field" type="text" nbInput fullWidth status="info" placeholder="Enter a task" #taskDescription>
-    <button nbButton status="info" (click)="addTask(taskDescription.value)">Add</button>
+<div id="task-input-box" style="display: flex; margin: 2em 0 0 0; width: 100%;" (keydown.enter)="addTask(taskDescription.value)">
+    <span class="p-float-label" style="flex-grow: 1;">
+        <input id="task-input-field" style="width: 100%;" autocomplete="off" class="p-inputtext-lg" type="text" pInputText #taskDescription> 
+        <label id="task-input-label" for="task-input-field">Enter a task</label>
+    </span>
+    <button pButton pRipple type="button" icon="pi pi-check"  (click)="addTask(taskDescription.value)"></button>
 </div>
 <p-messages></p-messages>

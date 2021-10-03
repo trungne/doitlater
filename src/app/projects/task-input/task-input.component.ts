@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Project } from '../project';
 import { ProjectService } from '../project.service';
 import { Task } from '../task/task';
 
@@ -13,6 +12,8 @@ import { Task } from '../task/task';
 export class TaskInputComponent implements OnInit {
   @Input() projectID!: string;
   private taskInputField: any;
+  // private taskInputLabel: any;
+
   constructor(
     private messageService: MessageService,
     private projectService: ProjectService) { }
@@ -23,18 +24,23 @@ export class TaskInputComponent implements OnInit {
 
   ngAfterViewInit(){
     this.taskInputField = document.querySelector("#task-input-field");
+    // this.taskInputLabel = document.querySelector("#task-input-label");
+
     this.taskInputField.focus();
   }
 
-  addTask(description: string){
-    description = description.trim();
-    if (!description){
+  addTask(taskDescription: string){
+    if (!taskDescription || !taskDescription.trim()){
       this.addWarning("Doing nothing is not quite a task, right?");
       return;
     }
-    const newTask = new Task(description);
+
+    taskDescription = taskDescription.trim();
+    const newTask = new Task(taskDescription);
     this.projectService.addTask(this.projectID, newTask);
     this.taskInputField.value = "";
+    this.messageService.clear();
+
   }
 
   addWarning(message: string){
