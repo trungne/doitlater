@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Project } from '../project';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Task, TaskStatus } from '../task/task';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 
 

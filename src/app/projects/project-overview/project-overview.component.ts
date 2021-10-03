@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../../services/project.service';
 import { Project } from '../project';
 import {ConfirmationService, MenuItem} from 'primeng/api';
 import { Menu, MenuItemContent } from 'primeng/menu';

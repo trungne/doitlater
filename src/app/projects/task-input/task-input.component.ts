@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../../services/project.service';
 import { Task } from '../task/task';
 
 @Component({
