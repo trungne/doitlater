@@ -1,18 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { PROJECTS } from '../projects/mock-projects';
 import { Project } from '../projects/project';
 import { Observable, of } from 'rxjs';
 import { Task } from '../projects/task/task';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireDatabase} from '@angular/fire/compat/database'
+
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
-  constructor(private store: AngularFirestore) {
+export class ProjectService implements OnInit{
+  constructor(private firestore: Firestore, private store: AngularFirestore) {
     
-   }
+  }
+  ngOnInit(){
+    
+  }
 
   getProjects(): Observable<Project[]> {
     return of(PROJECTS);
@@ -23,26 +28,24 @@ export class ProjectService {
     return of(project);
   }
 
-  addProject(name: string, description: string): void{
-    const newProject = new Project(name, description);
-    let data;
-    this.store.collection("projects").add({name: "Trung"});
-    this.store.collection("projects").get().subscribe(d => {
-      for (const doc of d.docs){
-        console.log(doc.id);
-        console.log(doc.get("title"));
-      }
-    });
+  createProject(title: string, description: string): Project{
+    return {
+      id: this.generateId(),
+      title: title,
+      description: description,
+      tasks: []
+    } as Project
+  }
 
-    this.store.collection("projects").doc("C5iBSdfqHiXarDcBIZW6").get().subscribe(
-      d => {
-        data = d
-        console.log(d.get("description"));
-      }
-      
-    );
-    
-    PROJECTS.push(newProject);
+  generateId(): string{
+    const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
+    const time: number = Date.now();
+    const id = `${randomNum}-project-${time}`.replace('.', '');
+    return id;
+  }
+
+  addProject(title: string, description: string): void{
+    PROJECTS.push(this.createProject(title, description))
   }
 
   deleteProject(id: string){
@@ -55,14 +58,20 @@ export class ProjectService {
   addTask(projectID: string, task: Task){    
     const found = PROJECTS.findIndex(project => project.id === projectID);
     if (found > -1){
-      PROJECTS[found].addTask(task);
+      PROJECTS[found].tasks.push(task);
     }
   }
 
   removeTask(projectID: string, task: Task){
     const found = PROJECTS.findIndex(project => project.id === projectID);
-    if (found > -1){
-      PROJECTS[found].removeTask(task);
+    if (found == -1){
+      return;
     }
+    const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
+    if (foundTask == -1){
+      return;
+    }
+
+    PROJECTS[found].tasks.splice(foundTask, 1);
   }
 }

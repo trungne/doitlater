@@ -6,7 +6,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 // Components Imports
 import { ProjectsComponent } from './projects.component';
 import { TaskComponent } from './task/task.component';
-import { ProjectMenuComponent } from './project-menu/project-menu.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectInputComponent } from './project-input/project-input.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
@@ -33,7 +32,6 @@ import {MenuModule} from 'primeng/menu';
 @NgModule({
   declarations: [
     ProjectsComponent,
-    ProjectMenuComponent,
     ProjectListComponent,
     ProjectInputComponent,
     ProjectOverviewComponent,

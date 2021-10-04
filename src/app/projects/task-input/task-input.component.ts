@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ProjectService } from '../../services/project.service';
-import { Task } from '../task/task';
+import { Task, TaskStatus } from '../task/task';
 
 @Component({
   selector: 'app-task-input',
@@ -24,8 +24,6 @@ export class TaskInputComponent implements OnInit {
 
   ngAfterViewInit(){
     this.taskInputField = document.querySelector("#task-input-field");
-    // this.taskInputLabel = document.querySelector("#task-input-label");
-
     this.taskInputField.focus();
   }
 
@@ -36,7 +34,12 @@ export class TaskInputComponent implements OnInit {
     }
 
     taskDescription = taskDescription.trim();
-    const newTask = new Task(taskDescription);
+
+    const newTask = {
+      id: String(Math.random() + Date.now()) , 
+      description: taskDescription, 
+      status: TaskStatus.Todo} as Task;
+
     this.projectService.addTask(this.projectID, newTask);
     this.taskInputField.value = "";
     this.messageService.clear();

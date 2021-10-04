@@ -19,6 +19,8 @@ import { HomeModule } from './home/home.module';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat/';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -39,6 +41,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+
+    provideFirebaseApp(()=> initializeApp(environment.firebase)),
+    provideFirestore(()=> getFirestore()),
 
     // Nebula Imports
     NbThemeModule.forRoot({name: 'default'}),

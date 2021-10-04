@@ -15,19 +15,39 @@ import { ActivatedRoute } from '@angular/router';
 export class ProjectDetailComponent implements OnInit {
   @Input() project!: Project;
 
+  todoTasks!: Task[];
+  doingTasks!: Task[];
+  doneTasks!: Task[];
+
   constructor(private projectService: ProjectService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if(!this.project){
+    if (!this.project){
       this.getProject();
+      return;
     }
+
+    this.projectService.getProject(this.project.id).subscribe(
+      p => {this.project = p;
+        this.updateTaskLists();
+      }
+    )
+  }
+  updateTaskLists(){
+    this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
+    this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
+    this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
+    console.log("update tasklist");
   }
 
   getProject(){
     const id = String(this.route.snapshot.paramMap.get('id'));
-    this.projectService.getProject(id).subscribe(project => this.project = project);
-
+    const observable = this.projectService.getProject(id);
+    observable.subscribe(project => {
+      this.project = project;
+      this.updateTaskLists();
+    });
   }
 
   drop(event: CdkDragDrop<Task[]>){

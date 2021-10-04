@@ -1,7 +1,6 @@
 import { Project } from "./project";
-
 export const PROJECTS: Project[] = [
-    new Project("Project 1", "Project 1 description"),
-    new Project("Project 2", "Project 2 description"),
-    new Project("Project 3", "Project 3 description"),
+    {id: "1", title: "Project 1", description: "Project 1 description", tasks: []},
+    {id: "2", title: "Project 2", description: "Project 2 description", tasks: []},
+    {id: "3", title: "Project 3", description: "Project 3 description", tasks: []},
 ]

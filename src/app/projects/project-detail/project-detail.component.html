@@ -13,9 +13,9 @@
     
                     <nb-card-body 
                         cdkDropList
-                        [cdkDropListData]="project.toDoTasks"
+                        [cdkDropListData]="todoTasks"
                         (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let task of project.toDoTasks" 
+                        <div *ngFor="let task of todoTasks" 
                         cdkDrag 
                         [cdkDragData]="task"
                         cdkDragBoundary="#draggable-area">
@@ -33,9 +33,9 @@
     
                     <nb-card-body 
                         cdkDropList
-                        [cdkDropListData]="project.doingTasks"
+                        [cdkDropListData]="doingTasks"
                         (cdkDropListDropped)="drop($event)" >
-                        <div *ngFor="let task of project.doingTasks"
+                        <div *ngFor="let task of doingTasks"
                         [cdkDragData]="task"
                         cdkDrag cdkDragBoundary="#draggable-area">
                             <app-task [task]="task"></app-task>
@@ -52,9 +52,9 @@
     
                     <nb-card-body 
                         cdkDropList
-                        [cdkDropListData]="project.doneTasks"
+                        [cdkDropListData]="doneTasks"
                         (cdkDropListDropped)="drop($event)" >
-                        <div *ngFor="let task of project.doneTasks" 
+                        <div *ngFor="let task of doneTasks" 
                         cdkDrag 
                         [cdkDragData]="task"
                         cdkDragBoundary="#draggable-area">
