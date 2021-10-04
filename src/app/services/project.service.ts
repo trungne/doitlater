@@ -64,14 +64,15 @@ export class ProjectService implements OnInit{
 
   removeTask(projectID: string, task: Task){
     const found = PROJECTS.findIndex(project => project.id === projectID);
-    if (found == -1){
-      return;
-    }
-    const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
-    if (foundTask == -1){
+    if (found === -1){
       return;
     }
 
+    const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
+    if (foundTask === -1){
+      return;
+    }
+    console.log();
     PROJECTS[found].tasks.splice(foundTask, 1);
   }
 }

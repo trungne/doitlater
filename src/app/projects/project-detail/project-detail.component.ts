@@ -34,7 +34,6 @@ export class ProjectDetailComponent implements OnInit {
     this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
     this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
     this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
-    console.log("update task lists");
   }
 
   getProject(){
@@ -47,11 +46,12 @@ export class ProjectDetailComponent implements OnInit {
   drop(event: CdkDragDrop<Task[]>){
     if(event.container.element.nativeElement.classList.contains("delete-box")){
       const task = event.item.data;
-      if (!task){
+      if (!task) {
         return;
       }
 
       this.projectService.removeTask(this.project.id, task);
+      this.updateTaskLists();
       return;
     }
     
