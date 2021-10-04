@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
 import { Project } from '../project';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Task, TaskStatus } from '../task/task';
@@ -22,31 +22,25 @@ export class ProjectDetailComponent implements OnInit {
   constructor(private projectService: ProjectService,
     private route: ActivatedRoute) { }
 
+
   ngOnInit(): void {
     if (!this.project){
       this.getProject();
-      return;
     }
-
-    this.projectService.getProject(this.project.id).subscribe(
-      p => {this.project = p;
-        this.updateTaskLists();
-      }
-    )
+    this.updateTaskLists();
   }
+  
   updateTaskLists(){
     this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
     this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
     this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
-    console.log("update tasklist");
+    console.log("update task lists");
   }
 
   getProject(){
     const id = String(this.route.snapshot.paramMap.get('id'));
-    const observable = this.projectService.getProject(id);
-    observable.subscribe(project => {
+    this.projectService.getProject(id).subscribe(project => {
       this.project = project;
-      this.updateTaskLists();
     });
   }
 

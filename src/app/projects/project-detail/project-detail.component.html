@@ -1,7 +1,7 @@
 <div>
     {{project.description}}
 </div>
-<app-task-input [projectID]="project.id"></app-task-input>
+<app-task-input (taskAddedEvent)="updateTaskLists()" [projectID]="project.id"></app-task-input>
 <div class="grid" cdkDropListGroup id="draggable-area">
     <div class="col">
         <!-- tasks columns -->
