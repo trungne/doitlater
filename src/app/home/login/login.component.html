@@ -1,0 +1,34 @@
+<div class="flex justify-content-center">
+    <p-card>
+        <div style="width: 25em; gap: 2em;" class="p-inputgroup flex-column">
+            <span class="p-float-label">
+                <input id="email-input" type="text" pInputText [(ngModel)]="email"> 
+                <label for="email-input">Email</label>
+            </span>
+
+            <span class="p-float-label">
+                <input id="password-input" type="text" pInputText [(ngModel)]="password"> 
+                <label for="password-input">Password</label>
+            </span>
+
+            <div class="flex justify-content-between">
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="rememberUser" [binary]="true" inputId="binary"></p-checkbox>
+                    <label for="binary"> Remember me</label>
+                </div>
+                <div>
+                    <a href="/home"> Forgot password? </a>
+                </div>
+            </div>
+
+            <div class="p-fluid">
+                <p-button label="Sign in"></p-button>
+            </div>
+
+            <div>
+                <span> Don't have an account yet? </span>
+                <a [routerLink]="['/signup']" > Register now </a>
+            </div>
+        </div>
+    </p-card>
+</div>

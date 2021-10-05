@@ -1,19 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
-import {DragDropModule} from 'primeng/dragdrop';
-import { PanelModule } from 'primeng/panel';
-
-
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import {CardModule} from 'primeng/card';
+import {InputTextModule} from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {CheckboxModule} from 'primeng/checkbox';
+import {DividerModule} from 'primeng/divider';
+import {PasswordModule} from 'primeng/password';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,
-    DragDropModule,
-    PanelModule
+    CardModule,
+    InputTextModule,
+    FormsModule,
+    ButtonModule,
+    CheckboxModule,
+    DividerModule,
+    PasswordModule,
+    RouterModule
   ]
 })
 export class HomeModule { }

@@ -1,0 +1,66 @@
+<div class="flex justify-content-center">
+    <p-card>
+        <div style="width: 25em; gap: 1em;" class="p-inputgroup flex-column">
+            <div class="flex" style="gap: 0.75em;">
+                <div class="flex-column">
+                    <p>First name</p>
+                    <input id="firstname-input" type="text" pInputText [(ngModel)]="firstName"> 
+                </div>
+
+                <div class="flex-column">
+                    <p>Last name</p>
+                    <input id="lastname-input" type="text" pInputText [(ngModel)]="lastName"> 
+                </div>
+            </div>
+
+            <div class="flex-column">
+                <p>Username</p>
+                <input id="username-input" type="text" pInputText [(ngModel)]="username"> 
+            </div>
+
+            <div class="flex-column">
+                <p>Email</p>
+                <input id="email-input" type="text" pInputText [(ngModel)]="email"> 
+            </div>
+
+            
+            
+        </div>
+
+        <div class="flex-column" style="margin-bottom: 1em; margin-top: 1em;">
+            <p>Password</p>
+            <p-password [(ngModel)]="password" class="p-fluid" id="password-field">                
+                <ng-template pTemplate="header" >
+                    <h6>Pick a password</h6>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-divider></p-divider>
+                    <p class="p-mt-2">Suggestions</p>
+                    <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
+                        <li>At least one lowercase</li>
+                        <li>At least one uppercase</li>
+                        <li>At least one numeric</li>
+                        <li>Minimum 8 characters</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+        </div>
+        <div class="p-fluid" style="margin-top: 1em;">
+            <p-button label="Sign up"></p-button>
+        </div>
+
+        <p-divider align="center">
+            or
+        </p-divider>
+
+        <span>
+            Create an account using:
+        </span>
+
+        <div style="margin-top: 1em;">
+            <button icon="pi pi-google" pButton pRipple type="button" label="Google" class="p-button-outlined p-button-secondary"></button>
+        </div>
+    </p-card>
+</div>
+
+    
