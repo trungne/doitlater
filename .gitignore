@@ -2,6 +2,10 @@
 
 /src/environments/**
 
+.firebase
+
+.github
+
 # compiled output
 /dist
 /tmp
