@@ -13,7 +13,9 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class ProjectDetailComponent implements OnInit {
-  @Input() project!: Project;
+  @Input() projectID!: string;
+
+  project!: Project;
 
   todoTasks!: Task[];
   doingTasks!: Task[];
@@ -24,9 +26,16 @@ export class ProjectDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (!this.project){
-      this.getProject();
-    }
+    this.getProject();
+  }
+  
+  updateTaskLists(){
+    this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
+    this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
+    this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
+  }
+
+  getTasks(){
     this.projectService.getTasks(this.project.id).subscribe(
       tasks => {
         this.project.tasks = tasks;
@@ -35,19 +44,14 @@ export class ProjectDetailComponent implements OnInit {
     )
   }
 
-
-  
-  
-  updateTaskLists(){
-    this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
-    this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
-    this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
-  }
-
   getProject(){
-    const id = String(this.route.snapshot.paramMap.get('id'));
-    this.projectService.getProject(id).subscribe(project => {
+    if(!this.projectID){
+      this.projectID = String(this.route.snapshot.paramMap.get('id'));
+    }
+    this.projectService.getProject(this.projectID).subscribe(project => {
       this.project = project;
+      console.log(project);
+      this.getTasks();
     });
   }
 
@@ -55,7 +59,7 @@ export class ProjectDetailComponent implements OnInit {
     const found = this.project.tasks.findIndex(t => t.id === taskID);
     if (found > -1){
       // remove task in database
-      this.projectService.removeTask(taskID);
+      this.projectService.deleteTask(taskID);
 
       this.project.tasks.splice(found, 1);
 

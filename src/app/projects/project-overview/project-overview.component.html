@@ -1,4 +1,4 @@
-<p-panel header={{project.title}} [toggleable]="true" [collapsed]="true" (onBeforeToggle)="showDetails()">
+<p-panel header={{overview}} [toggleable]="true" [collapsed]="true" (onBeforeToggle)="showDetails()">
     <ng-template pTemplate="icons">
             <button pButton class="p-panel-header-icon">
               <span class="p-link pi pi-cog" (click)="menu.toggle($event)"></span>
@@ -6,8 +6,9 @@
             
             <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
     </ng-template>
-
-    <app-project-detail *ngIf="detailShown" [project]="project"></app-project-detail>    
+    <div *ngIf="detailShown && project">
+      <app-project-detail  [projectID]="project.id"></app-project-detail>    
+    </div>
 
 </p-panel>
 

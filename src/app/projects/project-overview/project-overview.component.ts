@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../project';
 import {ConfirmationService, MenuItem} from 'primeng/api';
-import { Menu, MenuItemContent } from 'primeng/menu';
 
 @Component({
   selector: 'app-project-overview',
@@ -13,14 +12,15 @@ import { Menu, MenuItemContent } from 'primeng/menu';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() public project!: Project;
-  detailShown!: boolean;
+  overview?: string;
+  detailShown = false;
   
   items!: MenuItem[];
   constructor(
     private router: Router,
     private projectService: ProjectService,
     private confirmationService: ConfirmationService) { 
-      
+
     }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class ProjectOverviewComponent implements OnInit {
         label: 'Expand',
         icon: 'pi pi-desktop',
         command: () => {
-          this.router.navigate([`/projects/${1}`]);
+          this.router.navigate([`/projects/${this.project.id}`]);
         }
         
       },
@@ -41,7 +41,8 @@ export class ProjectOverviewComponent implements OnInit {
         }
       }
     ]
-    this.detailShown = false;
+    this.overview = `${this.project.title} - ${this.project.description}`;
+
   }
 
   showDetails(){

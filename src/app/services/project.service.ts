@@ -12,7 +12,7 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class ProjectService implements OnInit{
-  private projectsCollectionRef: AngularFirestoreCollection<Project>;
+  private projectsCollectionRef: AngularFirestoreCollection;
   private tasksCollectionRef: AngularFirestoreCollection;
 
   constructor(private store: AngularFirestore) {
@@ -23,50 +23,41 @@ export class ProjectService implements OnInit{
     
   }
 
+  
+
+  getProjects(): Observable<any> {
+    return this.projectsCollectionRef.valueChanges({idField: "id"});
+  }
+
+  getProject(id: string): Observable<any> {
+    console.log(id);
+    return this.store.doc(`projects/${id}`).valueChanges({idField: "id"});
+  }
+
+  addProject(title: string, description: string): void{
+    this.projectsCollectionRef.add(
+      {
+        title: title,
+        description: description
+      }
+    )
+  }
+
+  deleteProject(id: string){
+    this.store.doc(`projects/${id}`).delete();
+  }
+
   getTasks(projectID: string): Observable<any> {
     const tasksCollectionRef = this.store.collection("tasks", ref => ref.where('projectID', '==', projectID));
     return tasksCollectionRef.valueChanges({idField: "id"});
   }
 
-  getProjects(): Observable<Project[]> {
-    return this.projectsCollectionRef.valueChanges({idField: "id"});
-  }
-
-  getProject(id: string): Observable<Project>{
-    const project = PROJECTS.find(p => p.id === id)!;
-    return of(project);
-  }
-
-  createProject(title: string, description: string): Project{
-    return {
-      id: this.generateID(),
-      title: title,
-      description: description,
-      tasks: []
-    } as Project
-  }
-
-  addProject(title: string, description: string): void{
-    PROJECTS.push(this.createProject(title, description))
-  }
-
-  deleteProject(id: string){
-    const found = PROJECTS.findIndex(project => project.id === id);
-    if (found > -1){
-      PROJECTS.splice(found, 1);
-    }
-  }
-
-  generateID(){
-    return this.store.createId();
-  }
-
-  addTask(task: Task): void{    
+  addTask(projectID: string, description: string, status: TaskStatus): void{    
     this.tasksCollectionRef.add(
       {
-        projectID: task.projectID,
-        description: task.description,
-        status: task.status
+        projectID: projectID,
+        description: description,
+        status: status
       }
     )
   }
@@ -78,7 +69,7 @@ export class ProjectService implements OnInit{
     })
   }
 
-  removeTask(taskID: string): Promise<void>{
+  deleteTask(taskID: string): Promise<void>{
     const taskRef = this.store.doc(`tasks/${taskID}`);
     return taskRef.delete();
   }
