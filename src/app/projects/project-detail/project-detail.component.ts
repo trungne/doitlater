@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
 import { Project } from '../project';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Task, TaskStatus } from '../task/task';
@@ -27,8 +27,16 @@ export class ProjectDetailComponent implements OnInit {
     if (!this.project){
       this.getProject();
     }
-    this.updateTaskLists();
+    this.projectService.getTasks(this.project.id).subscribe(
+      tasks => {
+        this.project.tasks = tasks;
+        this.updateTaskLists();
+      }
+    )
   }
+
+
+  
   
   updateTaskLists(){
     this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);

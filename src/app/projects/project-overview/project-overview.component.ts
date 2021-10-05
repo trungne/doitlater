@@ -13,13 +13,15 @@ import { Menu, MenuItemContent } from 'primeng/menu';
 })
 export class ProjectOverviewComponent implements OnInit {
   @Input() public project!: Project;
-  header = "header";
+  detailShown!: boolean;
+  
   items!: MenuItem[];
-
   constructor(
     private router: Router,
     private projectService: ProjectService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService) { 
+      
+    }
 
   ngOnInit(): void {
     this.items = [
@@ -39,9 +41,13 @@ export class ProjectOverviewComponent implements OnInit {
         }
       }
     ]
+    this.detailShown = false;
   }
 
-  
+  showDetails(){
+    this.detailShown = true;
+  }
+
   deleteProject() {
     this.confirmationService.confirm({
         message: 'Are you sure that you want to perform this action?',

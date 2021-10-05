@@ -1,11 +1,12 @@
 export enum TaskStatus {
-    Todo = 0,
-    Doing = 1,
-    Done = 2,
+    Todo = "to-do",
+    Doing = "doing",
+    Done = "done",
 }
 
 export interface Task {
-    description: string;
+    projectID: string;
     id: string;
+    description: string;
     status: TaskStatus;
 }

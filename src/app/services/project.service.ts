@@ -3,7 +3,7 @@ import { PROJECTS } from '../projects/mock-projects';
 import { Project } from '../projects/project';
 import { Observable, of } from 'rxjs';
 import { Task } from '../projects/task/task';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 
@@ -12,15 +12,22 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class ProjectService implements OnInit{
-  constructor(private firestore: Firestore, private store: AngularFirestore) {
-    
+  private projectsCollectionRef: AngularFirestoreCollection<Project>;
+
+  constructor(private store: AngularFirestore) {
+    this.projectsCollectionRef = this.store.collection("projects");
   }
   ngOnInit(){
     
   }
 
+  getTasks(projectID: string): Observable<any> {
+    const tasksCollectionRef = this.store.collection("tasks", ref => ref.where('projectID', '==', projectID));
+    return tasksCollectionRef.valueChanges({idField: "id"});
+  }
+
   getProjects(): Observable<Project[]> {
-    return of(PROJECTS);
+    return this.projectsCollectionRef.valueChanges({idField: "id"});
   }
 
   getProject(id: string): Observable<Project>{
