@@ -51,20 +51,26 @@ export class ProjectDetailComponent implements OnInit {
     });
   }
 
+  removeTask(taskID: string): void{
+    const found = this.project.tasks.findIndex(t => t.id === taskID);
+    if (found > -1){
+      // remove task in database
+      this.projectService.removeTask(taskID);
+
+      // remove task in project task list
+      this.project.tasks.splice(found, 1);
+      
+      this.updateTaskLists();
+    }
+  }
   drop(event: CdkDragDrop<Task[]>){
     if(event.container.element.nativeElement.classList.contains("delete-box")){
-      const task = event.item.data;
-      if (!task) {
-        return;
+      const task: Task = event.item.data;
+      if (task) {
+        this.removeTask(task.id)
       }
-
-      this.projectService.removeTask(this.project.id, task);
-      this.updateTaskLists();
-      return;
     }
-    
-    
-    if (event.previousContainer === event.container) {
+    else if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } 
     else {

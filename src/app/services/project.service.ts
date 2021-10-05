@@ -69,17 +69,22 @@ export class ProjectService implements OnInit{
     }
   }
 
-  removeTask(projectID: string, task: Task){
-    const found = PROJECTS.findIndex(project => project.id === projectID);
-    if (found === -1){
-      return;
-    }
-
-    const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
-    if (foundTask === -1){
-      return;
-    }
-    console.log();
-    PROJECTS[found].tasks.splice(foundTask, 1);
+  removeTask(taskID: string): void{
+    const taskRef = this.store.collection("tasks", ref => ref.where("id", '==', taskID));
+    taskRef.doc().delete();
   }
+
+  // removeTask(projectID: string, task: Task){
+  //   const found = PROJECTS.findIndex(project => project.id === projectID);
+  //   if (found === -1){
+  //     return;
+  //   }
+
+  //   const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
+  //   if (foundTask === -1){
+  //     return;
+  //   }
+  //   console.log();
+  //   PROJECTS[found].tasks.splice(foundTask, 1);
+  // }
 }
