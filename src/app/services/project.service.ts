@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { PROJECTS } from '../projects/mock-projects';
 import { Project } from '../projects/project';
 import { Observable, of } from 'rxjs';
-import { Task } from '../projects/task/task';
+import { Task, TaskStatus } from '../projects/task/task';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
@@ -13,9 +13,11 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 })
 export class ProjectService implements OnInit{
   private projectsCollectionRef: AngularFirestoreCollection<Project>;
+  private tasksCollectionRef: AngularFirestoreCollection;
 
   constructor(private store: AngularFirestore) {
     this.projectsCollectionRef = this.store.collection("projects");
+    this.tasksCollectionRef = this.store.collection("tasks");
   }
   ngOnInit(){
     
@@ -37,18 +39,11 @@ export class ProjectService implements OnInit{
 
   createProject(title: string, description: string): Project{
     return {
-      id: this.generateId(),
+      id: this.generateID(),
       title: title,
       description: description,
       tasks: []
     } as Project
-  }
-
-  generateId(): string{
-    const randomNum: string = (Math.random()*10).toFixed(5).replace('.', '');
-    const time: number = Date.now();
-    const id = `${randomNum}-project-${time}`.replace('.', '');
-    return id;
   }
 
   addProject(title: string, description: string): void{
@@ -62,29 +57,30 @@ export class ProjectService implements OnInit{
     }
   }
 
-  addTask(projectID: string, task: Task){    
-    const found = PROJECTS.findIndex(project => project.id === projectID);
-    if (found > -1){
-      PROJECTS[found].tasks.push(task);
-    }
+  generateID(){
+    return this.store.createId();
   }
 
-  removeTask(taskID: string): void{
-    const taskRef = this.store.collection("tasks", ref => ref.where("id", '==', taskID));
-    taskRef.doc().delete();
+  addTask(task: Task): void{    
+    this.tasksCollectionRef.add(
+      {
+        projectID: task.projectID,
+        description: task.description,
+        status: task.status
+      }
+    )
   }
 
-  // removeTask(projectID: string, task: Task){
-  //   const found = PROJECTS.findIndex(project => project.id === projectID);
-  //   if (found === -1){
-  //     return;
-  //   }
+  updateTaskStatus(taskID: string, newStatus: TaskStatus) {
+    const taskRef = this.store.doc(`tasks/${taskID}`);
+    return taskRef.update({
+      status: newStatus
+    })
+  }
 
-  //   const foundTask = PROJECTS[found].tasks.findIndex(t => t.id === task.id)
-  //   if (foundTask === -1){
-  //     return;
-  //   }
-  //   console.log();
-  //   PROJECTS[found].tasks.splice(foundTask, 1);
-  // }
+  removeTask(taskID: string): Promise<void>{
+    const taskRef = this.store.doc(`tasks/${taskID}`);
+    return taskRef.delete();
+  }
+
 }

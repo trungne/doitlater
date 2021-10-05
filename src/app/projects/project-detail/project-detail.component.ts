@@ -57,9 +57,8 @@ export class ProjectDetailComponent implements OnInit {
       // remove task in database
       this.projectService.removeTask(taskID);
 
-      // remove task in project task list
       this.project.tasks.splice(found, 1);
-      
+
       this.updateTaskLists();
     }
   }
@@ -92,6 +91,7 @@ export class ProjectDetailComponent implements OnInit {
         default:
           break;
       }
+      this.projectService.updateTaskStatus(event.item.data.id, event.item.data.status);
     }
   }
 }

@@ -38,11 +38,12 @@ export class TaskInputComponent implements OnInit {
     taskDescription = taskDescription.trim();
 
     const newTask = {
-      id: String(Math.random() + Date.now()) , 
+      id: this.projectService.generateID(),
+      projectID: this.projectID,
       description: taskDescription, 
       status: TaskStatus.Todo} as Task;
 
-    this.projectService.addTask(this.projectID, newTask);
+    this.projectService.addTask(newTask);
     this.taskInputField.value = "";
     this.messageService.clear();
 
