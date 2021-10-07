@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Project } from '../project';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Task, TaskStatus } from '../task/task';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./project-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProjectDetailComponent implements OnInit {
+export class ProjectDetailComponent implements OnInit, OnDestroy {
   @Input() projectID!: string;
 
   project!: Project;
@@ -21,6 +22,7 @@ export class ProjectDetailComponent implements OnInit {
   doingTasks!: Task[];
   doneTasks!: Task[];
 
+  taskSubcription!: Subscription;
   constructor(private projectService: ProjectService,
     private route: ActivatedRoute) { }
 
@@ -29,6 +31,10 @@ export class ProjectDetailComponent implements OnInit {
     this.getProject();
   }
   
+  ngOnDestroy(): void {
+    this.taskSubcription.unsubscribe();
+  }
+
   updateTaskLists(){
     this.todoTasks = this.project.tasks.filter(t => t.status === TaskStatus.Todo);
     this.doingTasks = this.project.tasks.filter(t => t.status === TaskStatus.Doing);
@@ -36,7 +42,7 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   getTasks(){
-    this.projectService.getTasks(this.project.id).subscribe(
+    this.taskSubcription = this.projectService.getTasks(this.project.id).subscribe(
       tasks => {
         this.project.tasks = tasks;
         this.updateTaskLists();
@@ -48,11 +54,14 @@ export class ProjectDetailComponent implements OnInit {
     if(!this.projectID){
       this.projectID = String(this.route.snapshot.paramMap.get('id'));
     }
-    this.projectService.getProject(this.projectID).subscribe(project => {
+    this.projectService.getProject(this.projectID)
+    .subscribe(project => {
       this.project = project;
-      console.log(project);
-      this.getTasks();
     });
+    // wait for project ID before get tasks
+    this.getTasks();
+
+    
   }
 
   removeTask(taskID: string): void{
@@ -67,16 +76,17 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
   drop(event: CdkDragDrop<Task[]>){
+    const task: Task = event.item.data;
+
+    if(!task){ return; }
+
     if(event.container.element.nativeElement.classList.contains("delete-box")){
-      const task: Task = event.item.data;
-      if (task) {
-        this.removeTask(task.id)
-      }
+      this.removeTask(task.id)
     }
     else if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } 
-    else {
+    else if (event.previousContainer !== event.container ){
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
@@ -84,18 +94,18 @@ export class ProjectDetailComponent implements OnInit {
       const containerID = event.container.element.nativeElement.parentElement?.id;
       switch (containerID) {
         case "to-do-tasks":
-          event.item.data.status = TaskStatus.Todo;
+          task.status = TaskStatus.Todo;
           break;
         case "doing-tasks":
-          event.item.data.status = TaskStatus.Doing;
+          task.status = TaskStatus.Doing;
           break;
         case "done-tasks":
-          event.item.data.status = TaskStatus.Done;
+          task.status = TaskStatus.Done;
           break;
         default:
           break;
       }
-      this.projectService.updateTaskStatus(event.item.data.id, event.item.data.status);
+      this.projectService.updateTaskStatus(task.id, task.status);
     }
   }
 }

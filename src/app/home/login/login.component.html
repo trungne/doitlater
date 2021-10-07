@@ -1,13 +1,18 @@
 <div class="flex justify-content-center">
+    <p-messages></p-messages>
+</div>
+
+<div class="flex justify-content-center">
     <p-card>
-        <div style="width: 25em; gap: 2em;" class="p-inputgroup flex-column">
+        
+        <div style="width: 25em; gap: 2em;" class="p-inputgroup flex-column" (keydown.enter)="loginUser()">
             <span class="p-float-label">
-                <input id="email-input" type="text" pInputText [(ngModel)]="email"> 
+                <input id="email-input" type="email" pInputText [(ngModel)]="email"> 
                 <label for="email-input">Email</label>
             </span>
 
             <span class="p-float-label">
-                <input id="password-input" type="text" pInputText [(ngModel)]="password"> 
+                <input id="password-input" type="password" pInputText [(ngModel)]="password"> 
                 <label for="password-input">Password</label>
             </span>
 
@@ -22,8 +27,17 @@
             </div>
 
             <div class="p-fluid">
-                <p-button label="Sign in"></p-button>
+                <p-button (click)="loginUser()" label="Sign in"></p-button>
             </div>
+
+            <div>
+                <p>
+                    Sign in with
+                </p>
+                <button (click)="loginUserWithGoogle()"
+                icon="pi pi-google" pButton pRipple type="button" label="Google" class="p-button-outlined p-button-secondary"></button>
+            </div>
+            
 
             <div>
                 <span> Don't have an account yet? </span>
@@ -32,3 +46,5 @@
         </div>
     </p-card>
 </div>
+
+    

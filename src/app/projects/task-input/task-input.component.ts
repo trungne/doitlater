@@ -23,7 +23,6 @@ export class TaskInputComponent implements OnInit {
   ngOnInit(): void {
     
   }
-
   ngAfterViewInit(){
     this.taskInputField = document.getElementById("task-input-field");
     this.taskInputField.focus();
@@ -37,7 +36,14 @@ export class TaskInputComponent implements OnInit {
 
     taskDescription = taskDescription.trim();
 
-    this.projectService.addTask(this.projectID, taskDescription, TaskStatus.Todo);
+    const newTask = {
+      id: this.projectService.genID(),
+      description: taskDescription,
+      projectID: this.projectID,
+      status: TaskStatus.Todo
+    } as Task;
+
+    this.projectService.addTask(newTask);
     this.taskInputField.value = "";
     this.messageService.clear();
 

@@ -11,7 +11,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {DividerModule} from 'primeng/divider';
 import {PasswordModule} from 'primeng/password';
 import { RouterModule } from '@angular/router';
-
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -27,7 +28,9 @@ import { RouterModule } from '@angular/router';
     CheckboxModule,
     DividerModule,
     PasswordModule,
-    RouterModule
+    RouterModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class HomeModule { }

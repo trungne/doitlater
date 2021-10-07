@@ -6,6 +6,7 @@ import { Task, TaskStatus } from '../projects/task/task';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { User } from './user';
 
 
 @Injectable({
@@ -23,48 +24,55 @@ export class ProjectService implements OnInit{
     
   }
 
-  
-
+  genID(): string {
+    return this.store.createId();
+  }
+  /** CRUD operations for Project **/
   getProjects(): Observable<any> {
-    return this.projectsCollectionRef.valueChanges({idField: "id"});
+    return this.projectsCollectionRef.valueChanges();
   }
 
   getProject(id: string): Observable<any> {
-    console.log(id);
-    return this.store.doc(`projects/${id}`).valueChanges({idField: "id"});
-  }
-
-  addProject(title: string, description: string): void{
-    this.projectsCollectionRef.add(
-      {
-        title: title,
-        description: description
+    this.store.collection("tasks", ref => ref.where("projectID", "==", id)).get().toPromise().then(
+      (result) =>{
+        for (const doc of result.docs){
+          console.log(doc.get("description"));
+        }
       }
     )
+    
+
+
+    return this.store.doc(`projects/${id}`).valueChanges();
+
   }
 
-  deleteProject(id: string){
-    this.store.doc(`projects/${id}`).delete();
+  addProject(project: Project): Promise<void>{
+    return this.store.doc(`projects/${project.id}`)
+      .set(project, {merge: true});
   }
 
+  deleteProject(id: string): Promise<void> {
+    // delete tasks first
+    this.deleteTasks(id);
+    
+    return this.store.doc(`projects/${id}`)
+      .delete();
+  }
+
+  /** CRUD operations for Task **/
   getTasks(projectID: string): Observable<any> {
     const tasksCollectionRef = this.store.collection("tasks", ref => ref.where('projectID', '==', projectID));
-    return tasksCollectionRef.valueChanges({idField: "id"});
+    return tasksCollectionRef.valueChanges();
   }
 
-  addTask(projectID: string, description: string, status: TaskStatus): void{    
-    this.tasksCollectionRef.add(
-      {
-        projectID: projectID,
-        description: description,
-        status: status
-      }
-    )
+  addTask(task: Task): Promise<void> {
+    return this.store.doc(`tasks/${task.id}`)
+      .set(task, {merge: true});
   }
 
   updateTaskStatus(taskID: string, newStatus: TaskStatus) {
-    const taskRef = this.store.doc(`tasks/${taskID}`);
-    return taskRef.update({
+    return this.store.doc(`tasks/${taskID}`).update({
       status: newStatus
     })
   }
@@ -74,4 +82,15 @@ export class ProjectService implements OnInit{
     return taskRef.delete();
   }
 
+  deleteTasks(projectID: string): void{
+    this.store.collection("tasks", ref => ref.where("projectID", "==", projectID))
+    .get().toPromise()
+    .then(
+      (result) =>{
+        for (const doc of result.docs){
+          doc.ref.delete();
+        }
+      }
+    )
+  }
 }

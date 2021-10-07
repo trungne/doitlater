@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import {MessageService} from 'primeng/api';
+import { Project } from '../project';
 
 @Component({
   selector: 'app-project-input',
@@ -64,8 +65,12 @@ export class ProjectInputComponent implements OnInit {
       this.addWarning(message + "should not be empty");
       return;
     }
-
-    this.projectService.addProject(name, description);
+    const newProject = {
+      id: this.projectService.genID(),
+      title: name,
+      description: description,
+    } as Project;
+    this.projectService.addProject(newProject);
     this.hideInputBox();
   }
 }
