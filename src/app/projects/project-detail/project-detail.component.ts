@@ -5,6 +5,8 @@ import { Task, TaskStatus } from '../task/task';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 
 
 @Component({
@@ -22,17 +24,25 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   doingTasks!: Task[];
   doneTasks!: Task[];
 
-  taskSubcription!: Subscription;
+  projectSubscription!: Subscription;
+  taskSubscription!: Subscription;
   constructor(private projectService: ProjectService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+      
+    }
 
 
   ngOnInit(): void {
+    if(!this.projectID){
+      this.projectID = String(this.route.snapshot.paramMap.get('id'));
+    }
     this.getProject();
+    this.getTasks();
   }
   
   ngOnDestroy(): void {
-    this.taskSubcription.unsubscribe();
+    this.projectSubscription.unsubscribe();
+    this.taskSubscription.unsubscribe();
   }
 
   updateTaskLists(){
@@ -41,26 +51,30 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.doneTasks = this.project.tasks.filter(t => t.status === TaskStatus.Done);
   }
 
+  addTask(task: Task): void{
+    this.project.tasks.push(task);
+    this.projectService.addTask(task);
+    this.updateTaskLists();
+  }
+
   getTasks(){
-    this.taskSubcription = this.projectService.getTasks(this.project.id).subscribe(
-      tasks => {
+    this.taskSubscription = this.projectService.getTasks(this.projectID)
+    .pipe(take(1))
+    .subscribe(
+      (tasks) => {
+        console.log("take tasks: ", tasks);
         this.project.tasks = tasks;
         this.updateTaskLists();
       }
     )
+
   }
 
   getProject(){
-    if(!this.projectID){
-      this.projectID = String(this.route.snapshot.paramMap.get('id'));
-    }
-    this.projectService.getProject(this.projectID)
+    this.projectSubscription = this.projectService.getProject(this.projectID)
     .subscribe(project => {
       this.project = project;
     });
-    // wait for project ID before get tasks
-    this.getTasks();
-
     
   }
 
@@ -75,6 +89,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.updateTaskLists();
     }
   }
+
   drop(event: CdkDragDrop<Task[]>){
     const task: Task = event.item.data;
 
@@ -92,20 +107,20 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
                         event.previousIndex,
                         event.currentIndex);
       const containerID = event.container.element.nativeElement.parentElement?.id;
+      let newTaskStatus!: TaskStatus;
       switch (containerID) {
         case "to-do-tasks":
-          task.status = TaskStatus.Todo;
+          newTaskStatus = TaskStatus.Todo;
           break;
         case "doing-tasks":
-          task.status = TaskStatus.Doing;
+          newTaskStatus = TaskStatus.Doing;
           break;
         case "done-tasks":
-          task.status = TaskStatus.Done;
-          break;
-        default:
+          newTaskStatus = TaskStatus.Done;
           break;
       }
-      this.projectService.updateTaskStatus(task.id, task.status);
+      task.status = newTaskStatus;
+      this.projectService.updateTaskStatus(task.id, newTaskStatus);
     }
   }
 }

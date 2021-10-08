@@ -33,16 +33,6 @@ export class ProjectService implements OnInit{
   }
 
   getProject(id: string): Observable<any> {
-    this.store.collection("tasks", ref => ref.where("projectID", "==", id)).get().toPromise().then(
-      (result) =>{
-        for (const doc of result.docs){
-          console.log(doc.get("description"));
-        }
-      }
-    )
-    
-
-
     return this.store.doc(`projects/${id}`).valueChanges();
 
   }
@@ -62,7 +52,9 @@ export class ProjectService implements OnInit{
 
   /** CRUD operations for Task **/
   getTasks(projectID: string): Observable<any> {
-    const tasksCollectionRef = this.store.collection("tasks", ref => ref.where('projectID', '==', projectID));
+    const tasksCollectionRef = this.store
+      .collection("tasks", ref => ref.where('projectID', '==', projectID));
+    
     return tasksCollectionRef.valueChanges();
   }
 

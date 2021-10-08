@@ -3,7 +3,7 @@
         {{project.description}}
     </div>
     <div *ngIf="project">
-        <app-task-input  (taskAddedEvent)="updateTaskLists()" [projectID]="projectID"></app-task-input>
+        <app-task-input  (taskAddedEvent)="addTask($event)" [projectID]="projectID"></app-task-input>
     </div>
     
     <div class="grid" cdkDropListGroup id="draggable-area">

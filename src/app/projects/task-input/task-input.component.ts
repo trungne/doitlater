@@ -11,10 +11,9 @@ import { Task, TaskStatus } from '../task/task';
 })
 export class TaskInputComponent implements OnInit {
   @Input() projectID!: string;
-  @Output() taskAddedEvent = new EventEmitter<string>();
+  @Output() taskAddedEvent = new EventEmitter<Task>();
   
   private taskInputField: any;
-  // private taskInputLabel: any;
 
   constructor(
     private messageService: MessageService,
@@ -43,12 +42,9 @@ export class TaskInputComponent implements OnInit {
       status: TaskStatus.Todo
     } as Task;
 
-    this.projectService.addTask(newTask);
+    this.taskAddedEvent.emit(newTask);
     this.taskInputField.value = "";
-    this.messageService.clear();
-
-    this.taskAddedEvent.emit();
-
+    this.messageService.clear();    
   }
 
   addWarning(message: string){
