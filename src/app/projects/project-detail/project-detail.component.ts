@@ -26,6 +26,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   projectSubscription!: Subscription;
   taskSubscription!: Subscription;
+
   constructor(private projectService: ProjectService,
     private route: ActivatedRoute) {
       
@@ -65,9 +66,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         console.log("take tasks: ", tasks);
         this.project.tasks = tasks;
         this.updateTaskLists();
+        this.taskSubscription.unsubscribe();
       }
     )
-
   }
 
   getProject(){
@@ -82,11 +83,14 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     const found = this.project.tasks.findIndex(t => t.id === taskID);
     if (found > -1){
       // remove task in database
-      this.projectService.deleteTask(taskID);
-
-      this.project.tasks.splice(found, 1);
-
-      this.updateTaskLists();
+      this.projectService.deleteTask(taskID).then(
+        () => { // only remove task in current task list when
+          // it has been successfully removed in database
+          // remove task in current task list
+          this.project.tasks.splice(found, 1);
+          this.updateTaskLists();
+        }
+      );
     }
   }
 

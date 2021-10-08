@@ -27,6 +27,8 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
 import {MenuModule} from 'primeng/menu';
+import {BlockUIModule} from 'primeng/blockui';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import {MenuModule} from 'primeng/menu';
     ToastModule,
     CardModule,
     AccordionModule,
-    MenuModule
+    MenuModule,
+    BlockUIModule,
+    ProgressSpinnerModule
   ],
   exports: [
     ProjectsComponent
