@@ -1,24 +1,23 @@
 import { Injectable, OnInit } from '@angular/core';
-import { PROJECTS } from '../projects/mock-projects';
 import { Project } from '../projects/project';
-import { Observable, of } from 'rxjs';
+import { empty, EMPTY, Observable, of } from 'rxjs';
 import { Task, TaskStatus } from '../projects/task/task';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, 
+} from '@angular/fire/compat/firestore';
+import { Firestore, arrayUnion, arrayRemove } from '@angular/fire/firestore';
 
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { User } from './user';
+import { AuthService } from './auth.service';
+import { switchMap, take } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService implements OnInit{
-  private projectsCollectionRef: AngularFirestoreCollection;
-  private tasksCollectionRef: AngularFirestoreCollection;
+  userID!: string;
+  constructor(private store: AngularFirestore, private authService: AuthService) {
 
-  constructor(private store: AngularFirestore) {
-    this.projectsCollectionRef = this.store.collection("projects");
-    this.tasksCollectionRef = this.store.collection("tasks");
   }
   ngOnInit(){
     
@@ -29,15 +28,39 @@ export class ProjectService implements OnInit{
   }
   /** CRUD operations for Project **/
   getProjects(): Observable<any> {
-    return this.projectsCollectionRef.valueChanges();
+    return this.authService.getCurrentUser().pipe(
+      switchMap((user) => {
+        if (user.projects && user.projects.length > 0){
+          return this.store.collection("projects", ref => ref.where("id", "in", user.projects)).valueChanges();
+        }
+        else{
+          return of([]);
+        }
+      })
+    )
   }
 
   getProject(id: string): Observable<any> {
+    //TODO: for security reason, check if project id is in current user project list
     return this.store.doc(`projects/${id}`).valueChanges();
-
   }
 
   addProject(project: Project): Promise<void>{
+    this.authService.getCurrentUser().pipe(take(1)).subscribe(
+      user => {
+        const ref = this.store.doc(`users/${user.uid}`);
+        if(!user.projects){
+          ref.set({projects: [project.id]}, {merge: true});
+        }
+        else{
+          ref.update({
+            projects: arrayUnion(project.id)
+          })
+        }
+
+      }
+    )
+
     return this.store.doc(`projects/${project.id}`)
       .set(project, {merge: true});
   }
@@ -45,6 +68,14 @@ export class ProjectService implements OnInit{
   deleteProject(id: string): Promise<void> {
     // delete tasks first
     this.deleteTasks(id);
+    this.authService.getCurrentUser().pipe(take(1)).subscribe(
+      user => {
+        this.store.doc(`users/${user.uid}`).update({
+          projects: arrayRemove(id)
+        })
+      }
+      )
+
     
     return this.store.doc(`projects/${id}`)
       .delete();

@@ -27,7 +27,6 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
 import {MenuModule} from 'primeng/menu';
-import {BlockUIModule} from 'primeng/blockui';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
@@ -61,7 +60,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     CardModule,
     AccordionModule,
     MenuModule,
-    BlockUIModule,
     ProgressSpinnerModule
   ],
   exports: [

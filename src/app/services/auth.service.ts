@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from "firebase/auth"
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {switchMap } from 'rxjs/operators';
 import { User } from './user';
 @Injectable({
@@ -12,13 +12,12 @@ import { User } from './user';
   
 })
 export class AuthService {
-  userLoggedin: boolean;
-  currentUser: any;
-
+  userLoggedin: boolean = false;
+  userObservable!: Observable<User> | Observable<any>;
   constructor(private router: Router,
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth) { 
-    this.currentUser = this.afAuth.authState.pipe(
+    this.userObservable = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user){
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -28,9 +27,7 @@ export class AuthService {
         }
       })
     )
-
-    this.userLoggedin = false;
-
+  
     this.afAuth.onAuthStateChanged(user => {
       if(user){
         this.userLoggedin = true;
@@ -42,6 +39,12 @@ export class AuthService {
     
   }
   
+  getCurrentUser(): Observable<any>{
+    return this.userObservable;
+  }
+
+
+
   async googleSignin() {
     try {
       const provider = new GoogleAuthProvider();
@@ -50,6 +53,10 @@ export class AuthService {
     } catch (error: any){
       console.log(error.message)
     }
+  }
+
+  logout() {
+    return this.afAuth.signOut();
   }
 
   updateUserData(user: any) {
@@ -71,10 +78,7 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then( () => {
         // display success message
-        this.router.navigate(['/home']);        
-
-        // initialize user object here
-        this.afAuth.user.subscribe(user => this.currentUser = user);
+        this.router.navigate(['/home']);
       })
       .catch(error => {
         console.log(error.message);

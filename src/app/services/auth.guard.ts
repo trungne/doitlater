@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       this.afAuth.onAuthStateChanged((user) => {
         if (user) {
-          console.log(user);
           resolve(true);
         }
         else {

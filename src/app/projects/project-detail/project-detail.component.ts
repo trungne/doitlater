@@ -5,7 +5,8 @@ import { Task, TaskStatus } from '../task/task';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -13,7 +14,7 @@ import { take } from 'rxjs/operators';
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  providers: [MessageService]
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
   @Input() projectID!: string;
@@ -28,7 +29,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   taskSubscription!: Subscription;
 
   constructor(private projectService: ProjectService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private messageService: MessageService) {
       
     }
 
@@ -60,13 +62,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   getTasks(){
     this.taskSubscription = this.projectService.getTasks(this.projectID)
-    .pipe(take(1))
+    .pipe(first())
     .subscribe(
       (tasks) => {
-        console.log("take tasks: ", tasks);
         this.project.tasks = tasks;
         this.updateTaskLists();
-        this.taskSubscription.unsubscribe();
       }
     )
   }
@@ -82,15 +82,20 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   removeTask(taskID: string): void{
     const found = this.project.tasks.findIndex(t => t.id === taskID);
     if (found > -1){
+      this.messageService.clear();
+      const deletedTask = this.project.tasks.splice(found, 1)
+
       // remove task in database
       this.projectService.deleteTask(taskID).then(
-        () => { // only remove task in current task list when
-          // it has been successfully removed in database
-          // remove task in current task list
-          this.project.tasks.splice(found, 1);
-          this.updateTaskLists();
+        () => {
+          this.messageService.add(
+            {severity:'success', 
+            summary: 'Syncing', 
+            detail: `"${deletedTask[0].description}" deleted`}
+          )
         }
       );
+      this.updateTaskLists();
     }
   }
 
