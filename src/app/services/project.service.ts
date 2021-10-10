@@ -1,12 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Project } from '../projects/project';
-import { empty, EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Task, TaskStatus } from '../projects/task/task';
 import { AngularFirestore, 
 } from '@angular/fire/compat/firestore';
-import { Firestore, arrayUnion, arrayRemove } from '@angular/fire/firestore';
+import { arrayUnion, arrayRemove, writeBatch } from '@angular/fire/firestore';
 
-import { User } from './user';
 import { AuthService } from './auth.service';
 import { switchMap, take } from 'rxjs/operators';
 
@@ -26,10 +25,12 @@ export class ProjectService implements OnInit{
   genID(): string {
     return this.store.createId();
   }
+
   /** CRUD operations for Project **/
   getProjects(): Observable<any> {
     return this.authService.getCurrentUser().pipe(
       switchMap((user) => {
+        console.log(user);
         if (user.projects && user.projects.length > 0){
           return this.store.collection("projects", ref => ref.where("id", "in", user.projects)).valueChanges();
         }
@@ -66,8 +67,10 @@ export class ProjectService implements OnInit{
   }
 
   deleteProject(id: string): Promise<void> {
-    // delete tasks first
+    // delete all tasks of the project
     this.deleteTasks(id);
+
+    // remove the project ID from the current user project ID list
     this.authService.getCurrentUser().pipe(take(1)).subscribe(
       user => {
         this.store.doc(`users/${user.uid}`).update({
@@ -76,17 +79,16 @@ export class ProjectService implements OnInit{
       }
       )
 
-    
+    // delete the project in projects database
     return this.store.doc(`projects/${id}`)
       .delete();
   }
 
   /** CRUD operations for Task **/
   getTasks(projectID: string): Observable<any> {
-    const tasksCollectionRef = this.store
-      .collection("tasks", ref => ref.where('projectID', '==', projectID));
-    
-    return tasksCollectionRef.valueChanges();
+    return this.store
+    .collection("tasks", ref => ref.where('projectID', '==', projectID))
+    .valueChanges();
   }
 
   addTask(task: Task): Promise<void> {
@@ -101,19 +103,26 @@ export class ProjectService implements OnInit{
   }
 
   deleteTask(taskID: string): Promise<void>{
-    const taskRef = this.store.doc(`tasks/${taskID}`);
-    return taskRef.delete();
+    return this.store.doc(`tasks/${taskID}`).delete();
   }
 
-  deleteTasks(projectID: string): void{
-    this.store.collection("tasks", ref => ref.where("projectID", "==", projectID))
-    .get().toPromise()
-    .then(
-      (result) =>{
-        for (const doc of result.docs){
-          doc.ref.delete();
-        }
-      }
+  async deleteTasks(projectID: string): Promise<void> {
+    const batch = this.store.firestore.batch();
+    
+    const collection = await this.store
+      .collection("tasks", ref => ref.where("projectID", "==", projectID))
+      .get().toPromise();
+
+    for (const doc of collection.docs){
+      batch.delete(doc.ref);
+    }
+
+    return batch.commit()
+  }
+
+  editTask(taskID: string, newDescription: string): Promise<void>{
+    return this.store.doc(`tasks/${taskID}`).update(
+      {description: newDescription}
     )
   }
 }

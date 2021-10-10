@@ -27,7 +27,7 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CardModule} from 'primeng/card';
 import {MenuModule} from 'primeng/menu';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -60,7 +60,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     CardModule,
     AccordionModule,
     MenuModule,
-    ProgressSpinnerModule
+    DialogModule
   ],
   exports: [
     ProjectsComponent

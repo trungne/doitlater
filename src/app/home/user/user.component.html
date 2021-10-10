@@ -1,7 +1,7 @@
 <div *ngIf="user">
     <p-card>
         <div class="flex">
-            <p-avatar [image]="user.photoURL" size="xlarge" shape="circle"></p-avatar>
+            <p-avatar [image]="user.photoURL || ''" size="xlarge" shape="circle"></p-avatar>
             <div>
                 Hi, {{user.displayName}}
                 <p-button label="Log out" (click)="logout()">

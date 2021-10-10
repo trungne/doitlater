@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FirebaseApp } from '@angular/fire/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
@@ -12,14 +11,17 @@ import { User } from './user';
   
 })
 export class AuthService {
-  userLoggedin: boolean = false;
+  // userLoggedin: boolean = false;
   userObservable!: Observable<User> | Observable<any>;
+  currentUser!: User
+
   constructor(private router: Router,
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth) { 
     this.userObservable = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user){
+
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         }
         else {
@@ -27,23 +29,22 @@ export class AuthService {
         }
       })
     )
+
   
-    this.afAuth.onAuthStateChanged(user => {
-      if(user){
-        this.userLoggedin = true;
-      }
-      else{
-        this.userLoggedin = false;
-      }
-    })
+    // this.afAuth.onAuthStateChanged(user => {
+    //   if(user){
+    //     this.userLoggedin = true;
+    //   }
+    //   else{
+    //     this.userLoggedin = false;
+    //   }
+    // })
     
   }
   
   getCurrentUser(): Observable<any>{
     return this.userObservable;
   }
-
-
 
   async googleSignin() {
     try {
@@ -59,17 +60,18 @@ export class AuthService {
     return this.afAuth.signOut();
   }
 
-  updateUserData(user: any) {
+  updateUserData(user: firebase.default.User | null) {
     if (!user){
       return;
     }
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc<User>(`users/${user.uid}`);
     const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
     };
+
     return userRef.set(data, { merge: true});
   }
 

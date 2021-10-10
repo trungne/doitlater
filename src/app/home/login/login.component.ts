@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         .then((result) => {
           
           if (result == null) { // null means successful, ye it's weird, I know.
-            this.router.navigate(['/projects']);
+            this.router.navigate(['/home']);
           }
           else if (result.isInvalid == false) {
             this.messageService.add({severity:'error', summary:'Invalid account', detail:'The account does not exist.'});
@@ -50,7 +50,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUserWithGoogle(){
-    this.authService.googleSignin();
+    this.authService.googleSignin().then(
+      () => this.router.navigate(['/home'])
+    );
   }
 
 }

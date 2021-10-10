@@ -1,5 +1,16 @@
 <div style="margin: 1em 0em 1em 0em !important; word-wrap: break-word;">
-    <p-card>
+    <p-card (dblclick)="showDialog()">
         {{ task.description }}
     </p-card>
+    
+    
+
 </div>
+
+<p-dialog [(visible)]="editTaskDialogDisplayed" [showHeader]="false" [modal]="true" cdkDrag [draggable]="false" (cdkDragStarted)="closeDialog()">
+    <span class="p-float-label" style="margin-top: 2em;">
+        <input [disabled]="loading" #description id="float-input" type="text" pInputText autofocus> 
+        <label for="float-input">Description</label>
+        <button type="button" pButton icon="pi pi-check" [loading]="loading" (click)="editTask()"></button>
+    </span>
+</p-dialog>
